@@ -1,12 +1,13 @@
 package tester;
 
-import geometrie.Cube;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
-import renderEngine.Loader;
+
+import renderEngine.PGUInterface;
 import renderEngine.RawModel;
 import renderEngine.Renderer;
+import geometrie.Cube;
 import userInterface.DisplayManager;
 
 /**
@@ -16,10 +17,9 @@ public class Main {
 
     public static void main(String[] args) {
 
-
         DisplayManager.create();
 
-        Loader loader = new Loader();
+        PGUInterface loader = new PGUInterface();
         Renderer renderer = new Renderer();
 
         Cube cube = new Cube();

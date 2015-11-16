@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by michael on 16.11.2015.
  */
-public class Loader {
+public class PGUInterface {
     private List<Integer> vaos = new ArrayList<Integer>();
     private List<Integer> vbos = new ArrayList<Integer>();
     private List<Integer> textures = new ArrayList<Integer>();
