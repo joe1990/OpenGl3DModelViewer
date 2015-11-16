@@ -36,6 +36,7 @@ public class Main {
         System.out.println("OpenGL version: " + GL11.glGetString(GL11.GL_VERSION));
         System.out.println("Display driver version: " + Display.getVersion());
         System.out.println("LWJGL version: " + Sys.getVersion());
+        System.out.println("Slick version: ");
 
         loader.cleanUp();
         DisplayManager.close();

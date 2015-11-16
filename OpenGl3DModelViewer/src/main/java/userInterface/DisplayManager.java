@@ -17,7 +17,7 @@ public class DisplayManager {
 
     public static void create(){
 
-        ContextAttribs attribs = new ContextAttribs(4, 0); //Use OpenGL Version 4.0
+        ContextAttribs attribs = new ContextAttribs(4, 1); //Use OpenGL Version 4.0
         attribs.withForwardCompatible(true);
         attribs.withProfileCore(true);
 
