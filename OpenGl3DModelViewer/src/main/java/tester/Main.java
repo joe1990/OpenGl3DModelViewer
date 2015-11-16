@@ -1,8 +1,12 @@
 package tester;
 
+import geometrie.Cube;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
+import renderEngine.Loader;
+import renderEngine.RawModel;
+import renderEngine.Renderer;
 import userInterface.DisplayManager;
 
 /**
@@ -15,11 +19,17 @@ public class Main {
 
         DisplayManager.create();
 
+        Loader loader = new Loader();
+        Renderer renderer = new Renderer();
+
+        Cube cube = new Cube();
+        RawModel model = loader.loadVAO(cube.getVertices(), cube.getIndices());
 
         while(DisplayManager.isNotCloseRequested()){
+            renderer.prepare();
 
-            //Render
 
+            renderer.render(model);
             DisplayManager.update();
         }
 
@@ -27,6 +37,7 @@ public class Main {
         System.out.println("Display driver version: " + Display.getVersion());
         System.out.println("LWJGL version: " + Sys.getVersion());
 
+        loader.cleanUp();
         DisplayManager.close();
     }
 }
