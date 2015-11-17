@@ -3,11 +3,11 @@ package tester;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
-
-import renderEngine.PGUInterface;
+import renderEngine.GPUInterface;
+import renderEngine.OBJReader;
 import renderEngine.RawModel;
 import renderEngine.Renderer;
-import geometrie.Cube;
+import shaders.ShaderCollection;
 import userInterface.DisplayManager;
 
 /**
@@ -19,17 +19,22 @@ public class Main {
 
         DisplayManager.create();
 
-        PGUInterface loader = new PGUInterface();
+        GPUInterface loader = new GPUInterface();
         Renderer renderer = new Renderer();
+        ShaderCollection shader = new ShaderCollection();
 
+/*
         Cube cube = new Cube();
         RawModel model = loader.loadVAO(cube.getVertices(), cube.getIndices());
+*/
+
+        RawModel dragon = OBJReader.loadObjModel("dragon", loader);
 
         while(DisplayManager.isNotCloseRequested()){
             renderer.prepare();
 
 
-            renderer.render(model);
+            renderer.render(dragon);
             DisplayManager.update();
         }
 

@@ -9,8 +9,9 @@ import org.lwjgl.opengl.GL30;
  */
 public class Renderer {
 
-public void prepare(){
-    GL11.glClearColor(1,0,0,1);
+    public void prepare(){
+        GL11.glClearColor(1,0,0,1
+    );
 }
 
     public void render(RawModel model){
