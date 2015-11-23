@@ -49,7 +49,7 @@ public class Shader {
         StringBuilder shaderSource = new StringBuilder();
         try {
             File projectRootPath = new File(".");
-            String filePath = projectRootPath + "\\" + file;
+            String filePath = projectRootPath.getCanonicalPath() + "\\" + file;
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
             String line;
             while ((line = reader.readLine()) != null){

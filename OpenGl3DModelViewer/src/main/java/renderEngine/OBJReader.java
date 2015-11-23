@@ -4,10 +4,7 @@ package renderEngine;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,9 +18,12 @@ public class OBJReader {
         FileReader fr = null;
         try {
             File projectRootPath = new File(".");
-            String filePath = projectRootPath + "\\ressources\\" + fileName + ".obj";
+            String filePath = projectRootPath.getCanonicalPath() + "\\ressources\\" + fileName + ".obj";
             fr = new FileReader(new File(filePath));
         } catch (FileNotFoundException e) {
+            System.out.println("Couldn't load file!");
+            e.printStackTrace();
+        } catch (IOException e) {
             System.out.println("Couldn't load file!");
             e.printStackTrace();
         }
