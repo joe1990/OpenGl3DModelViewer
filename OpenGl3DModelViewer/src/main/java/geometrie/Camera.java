@@ -1,12 +1,16 @@
 package geometrie;
 
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.util.vector.Vector3f;
 
 /**
  * Created by michael on 23.11.2015.
  */
 public class Camera {
+
+    private  float distanceToModel = 50;
+    private float angleAroundModel = 0;
 
 
         //3d vector to store the camera's position in
@@ -19,6 +23,12 @@ public class Camera {
 
 
         public Camera(){
+            calculateZoom();
+            calculatePitch();
+            calculateAngleAroundModel();
+            float horizontalDistance = calculateHorizontalDistance();
+            float verticalDistance = calculateVerticalDistance();
+            //calculateCameraPosition(horizontalDistance, verticalDistance);
         }
 
         public void move(){
@@ -41,7 +51,44 @@ public class Camera {
             if(Keyboard.isKeyDown(Keyboard.KEY_Y)){
                 position.y -= 0.2f;
             }
+            calculateZoom();
+        }
 
+        private void calculateCameraPosition(float thorizontalDistance, float verticalDistance ){
+            float theta = angleAroundModel;
+            float offsetX = thorizontalDistance * (float) Math.sin(Math.toRadians(theta));
+            float offsetZ = thorizontalDistance * (float)Math.cos(Math.toRadians(theta));
+            position.x = -offsetX;
+            position.z = -offsetZ;
+            position.y = verticalDistance;
+        }
+
+        private float calculateHorizontalDistance(){
+            return distanceToModel * (float)Math.cos(Math.toRadians(pitch));
+        }
+
+        private float calculateVerticalDistance() {
+            return distanceToModel * (float)Math.sin(Math.toRadians(pitch));
+        }
+
+        private void calculateZoom(){
+            position.z -= Mouse.getDWheel() * 0.01f;
+            float zoomLevel = Mouse.getDWheel() * 0.1f;
+            distanceToModel -= zoomLevel;
+        }
+
+        private void calculatePitch(){
+            if(Mouse.isButtonDown(1)){
+                float pitchChange = Mouse.getDY() * 0.1f;
+                pitch -= pitchChange;
+            }
+        }
+
+        private void calculateAngleAroundModel(){
+            if(Mouse.isButtonDown(0)){
+                float angleChange = Mouse.getDX() * 0.3f;
+                angleAroundModel -= angleChange;
+            }
         }
 
         public Vector3f getPosition() {
