@@ -20,7 +20,9 @@ public class OBJReader {
     public static RawModel loadObjModel(String fileName, GPUInterface loader) {
         FileReader fr = null;
         try {
-            fr = new FileReader(new File("OpenGl3DModelViewer/ressources/" + fileName + ".obj"));
+            File projectRootPath = new File(".");
+            String filePath = projectRootPath + "\\ressources\\" + fileName + ".obj";
+            fr = new FileReader(new File(filePath));
         } catch (FileNotFoundException e) {
             System.out.println("Couldn't load file!");
             e.printStackTrace();
