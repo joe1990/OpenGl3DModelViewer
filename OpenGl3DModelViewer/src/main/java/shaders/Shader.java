@@ -48,9 +48,7 @@ public class Shader {
     public static int loadShader(String file, int type){
         StringBuilder shaderSource = new StringBuilder();
         try {
-            File projectRootPath = new File(".");
-            String filePath = projectRootPath.getCanonicalPath() + "\\" + file;
-            BufferedReader reader = new BufferedReader(new FileReader(filePath));
+            BufferedReader reader = new BufferedReader(new FileReader(file));
             String line;
             while ((line = reader.readLine()) != null){
                 shaderSource.append(line).append("\n");{

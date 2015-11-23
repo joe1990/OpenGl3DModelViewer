@@ -17,8 +17,7 @@ public class OBJReader {
     public static RawModel loadObjModel(String fileName, GPUInterface loader) {
         FileReader fr = null;
         try {
-            File projectRootPath = new File(".");
-            String filePath = projectRootPath.getCanonicalPath() + "\\ressources\\" + fileName + ".obj";
+            String filePath = "ressources\\" + fileName + ".obj";
             fr = new FileReader(new File(filePath));
         } catch (FileNotFoundException e) {
             System.out.println("Couldn't load file!");
