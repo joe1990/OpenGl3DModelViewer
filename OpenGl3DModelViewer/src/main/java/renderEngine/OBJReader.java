@@ -112,7 +112,7 @@ public class OBJReader {
         }
 
         //return loader.loadToVAO(verticesArray, textureArray, normalsArray, indicesArray);
-        return loader.loadVAO(verticesArray, indicesArray);
+        return loader.loadVAO(verticesArray, indicesArray, normalsArray);
 
     }
 

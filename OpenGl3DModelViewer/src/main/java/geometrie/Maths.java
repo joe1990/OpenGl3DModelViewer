@@ -19,7 +19,7 @@ public class Maths {
         return matrix;
     }
 
-    /*
+
     public static Matrix4f createViewMatrix(Camera camera){
         Matrix4f viewMatrix = new Matrix4f();
         viewMatrix.setIdentity();
@@ -30,5 +30,5 @@ public class Maths {
         Matrix4f.translate(negativCameraPos, viewMatrix, viewMatrix);
         return viewMatrix;
     }
-    */
+
 }

@@ -18,12 +18,12 @@ public class GPUInterface {
     private ArrayList<Integer> vbos = new ArrayList<Integer>();
     private ArrayList<Integer> textures = new ArrayList<Integer>();
 
-    public RawModel loadVAO(float[] positions, float[] textureCoords, float[] normals, int[] indices){
+
+    public RawModel loadVAO(float[] positions, int[] indices, float normals[]){
         int vaoID = createVAO();
         bindIndicesBuffer(indices);
-        storeDatainAttributList(0,3, positions);
-        //storeDatainAttributList(1,2, textureCoords);
-       // storeDatainAttributList(2,3, normals);
+        storeDatainAttributList(0, 3, positions);
+        storeDatainAttributList(1, 3, normals);
         unbind();
         return new RawModel(vaoID, indices.length);
     }
@@ -35,22 +35,6 @@ public class GPUInterface {
         unbind();
         return new RawModel(vaoID, indices.length);
     }
-
-    /*
-    public int loadTexture(String fileName){
-        Texture texture = null;
-
-        try {
-            texture = TextureLoader.getTexture("PNG", new FileInputStream("res/"+fileName+".png"));
-        } catch (IOException e) {
-            System.err.println("FILE NOT FOUND! "+fileName);
-            e.printStackTrace();
-        }
-        int textureID = texture.getTextureID();
-        textures.add(textureID);
-        return textureID;
-    }
-    */
 
     public void cleanUp(){
         for(int vao:vaos){
