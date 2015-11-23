@@ -32,4 +32,30 @@ public class Light {
         }
 
 
+    public float[] getVertices() {
+
+        float x =  position.getX();
+        float y =  position.getY();
+        float z =  position.getZ();
+
+        float[] vertices = {
+
+                x, y, z,
+                x, y, z
+        };
+
+        return vertices;
+    }
+
+
+    public int[] getIndices() {
+
+        int[] indices = {
+            0,1
+        };
+
+        return indices;
+    }
+
+
 }

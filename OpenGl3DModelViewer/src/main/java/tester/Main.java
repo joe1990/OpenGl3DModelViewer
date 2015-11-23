@@ -3,6 +3,7 @@ package tester;
 import geometrie.Camera;
 import geometrie.CoordSystem;
 import geometrie.Light;
+import geometrie.Line;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
@@ -29,16 +30,21 @@ public class Main {
         ShaderCollection shader = new ShaderCollection();
         Renderer renderer = new Renderer(shader);
         Camera camera = new Camera();
-        Light light = new Light(new Vector3f(0,0,-20), new Vector3f(1,1,1));
+        Light light = new Light(new Vector3f(0,0,0), new Vector3f(1,1,1));
 
 /*
         Cube cube = new Cube();
         RawModel model = loader.loadVAO(cube.getVertices(), cube.getIndices());
 */
-        CoordSystem cSys = new CoordSystem();
-        RawModel coordSystem = loader.loadVAO(cSys.getVertices(), cSys.getIndices());
+        CoordSystem coordSystem = new CoordSystem();
+        RawModel coordSystemModel = loader.loadVAO(coordSystem.getVertices(), coordSystem.getIndices());
 
-        RawModel dragon = OBJReader.loadObjModel("dragon", loader);
+
+        Line line = new Line(0, -10, 0, 10);
+        RawModel lineModel = loader.loadVAO(line.getVertices(), line.getIndices());
+
+        RawModel dragonModel = OBJReader.loadObjModel("dragon", loader);
+
 
         while(DisplayManager.isNotCloseRequested()){
             camera.move();
@@ -48,8 +54,9 @@ public class Main {
             shader.loadLight(light);
             shader.loadViewMatrix(camera);
 
-            renderer.render(dragon);
-            renderer.renderLine(coordSystem);
+            renderer.render(dragonModel);
+            renderer.renderLine(coordSystemModel);
+            renderer.renderLine(lineModel);
 
             shader.stop();
             DisplayManager.update();
