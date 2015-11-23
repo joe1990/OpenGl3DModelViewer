@@ -20,5 +20,4 @@ void main()
 
     surfaceNormal = normal;
     toLightVector = lightPosition - position;
-
 }
