@@ -8,9 +8,7 @@ import org.lwjgl.Sys;
 
 public class FPSCalculator {
 
-    /** frames per second */
-    int fps;
-    /** last fps time */
+    int fps; //frames per seconds
     long lastFPS;
 
     public FPSCalculator(){

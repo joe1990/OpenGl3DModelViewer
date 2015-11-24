@@ -25,13 +25,12 @@ public class Shader {
         vertexShaderID = loadShader(vertexFile, GL20.GL_VERTEX_SHADER);
         fragmentShaderID = loadShader(fragmentFile, GL20.GL_FRAGMENT_SHADER);
         programID = GL20.glCreateProgram();
+
         GL20.glAttachShader(programID, vertexShaderID);
         GL20.glAttachShader(programID, fragmentShaderID);
 
         GL20.glBindAttribLocation(programID, 0, "position"); //Anstelle von glGetAttribLocation
         GL20.glBindAttribLocation(programID, 1, "normal");
-       // GL20.glBindAttribLocation(programID, 1, "textureCoords");
-       // GL20.glBindAttribLocation(programID, 2, "normals");
 
         GL20.glLinkProgram(programID);
         GL20.glValidateProgram(programID);

@@ -9,7 +9,6 @@ out vec3 toLightVector;
 
 uniform mat4 projection;
 uniform mat4 view;
-
 uniform vec3 lightPosition;
 uniform vec3 lightColor;
 

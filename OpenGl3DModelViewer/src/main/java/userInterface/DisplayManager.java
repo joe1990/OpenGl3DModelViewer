@@ -17,18 +17,13 @@ public class DisplayManager {
 
     public static void create(){
 
-        ContextAttribs attribs = new ContextAttribs(4, 1); //Use OpenGL Version 4.0
+        ContextAttribs attribs = new ContextAttribs(4, 1); //Use OpenGL Version 4.1
         attribs.withForwardCompatible(true);
         attribs.withProfileCore(true);
 
-        // window.frame.setVisible(true);
-        // Display.setVSyncEnabled(true);
-
         try{
-            //Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
             Display.setParent(window.getCanvas());
             Display.create(new PixelFormat(), attribs);
-            //Display.setTitle("Game");
         }catch(LWJGLException e){
             e.printStackTrace();
         }
@@ -37,7 +32,6 @@ public class DisplayManager {
     }
 
     public static boolean isNotCloseRequested(){
-        //System.out.println(Display.isCloseRequested() + " " + GUI.closeRequested);
         return !Display.isCloseRequested() && !Window.closeRequested;
     }
 

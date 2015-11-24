@@ -16,15 +16,13 @@ import java.util.ArrayList;
 public class GPUInterface {
     private ArrayList<Integer> vaos = new ArrayList<Integer>();
     private ArrayList<Integer> vbos = new ArrayList<Integer>();
-    private ArrayList<Integer> textures = new ArrayList<Integer>();
-
 
     public RawModel loadVAO(float[] positions, int[] indices, float normals[]){
         int vaoID = createVAO();
         bindIndicesBuffer(indices);
         storeDatainAttributList(0, 3, positions);
         storeDatainAttributList(1, 3, normals);
-        unbind();
+        GL30.glBindVertexArray(0);
         return new RawModel(vaoID, indices.length);
     }
 
@@ -32,7 +30,7 @@ public class GPUInterface {
         int vaoID = createVAO();
         bindIndicesBuffer(indices);
         storeDatainAttributList(0,3,positions);
-        unbind();
+        GL30.glBindVertexArray(0);
         return new RawModel(vaoID, indices.length);
     }
 
@@ -42,9 +40,6 @@ public class GPUInterface {
         }
         for(int vbo:vbos){
             GL30.glDeleteFramebuffers(vbo);
-        }
-        for(int texture: textures){
-            GL11.glDeleteTextures(texture);
         }
     }
 
@@ -63,11 +58,6 @@ public class GPUInterface {
         GL15.glBufferData(GL15.GL_ARRAY_BUFFER, buffer, GL15.GL_STATIC_DRAW);
         GL20.glVertexAttribPointer(attributNumber, coordSize, GL11.GL_FLOAT, false, 0, 0);
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
-
-
-    }
-    private void unbind(){
-        GL30.glBindVertexArray(0);
     }
 
     private void  bindIndicesBuffer(int[] indices){
@@ -84,7 +74,6 @@ public class GPUInterface {
         buffer.put(data);
         buffer.flip();
         return buffer;
-
     }
 
     private FloatBuffer storeDataInFloatBuffer(float[] data){
@@ -92,6 +81,5 @@ public class GPUInterface {
         buffer.put(data);
         buffer.flip();
         return buffer;
-
     }
 }

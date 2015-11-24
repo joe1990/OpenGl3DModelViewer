@@ -5,12 +5,42 @@ package geometrie;
  */
 public class Cube {
 
-    float[] textureCoords;
-    float[] vertices;
-    float[] normals;
-    int[] indices;
+    public static float[] getTextureCoords() {
 
-    public Cube(){
+        float[] textureCoords = {
+
+                0,0,
+                0,1,
+                1,1,
+                1,0,
+                0,0,
+                0,1,
+                1,1,
+                1,0,
+                0,0,
+                0,1,
+                1,1,
+                1,0,
+                0,0,
+                0,1,
+                1,1,
+                1,0,
+                0,0,
+                0,1,
+                1,1,
+                1,0,
+                0,0,
+                0,1,
+                1,1,
+                1,0
+
+
+        };
+        return textureCoords;
+    }
+
+
+    public static float[] getVertices() {
 
         float[] vertices = {
                 -0.5f,0.5f,-0.5f,
@@ -42,41 +72,12 @@ public class Cube {
                 -0.5f,-0.5f,-0.5f,
                 0.5f,-0.5f,-0.5f,
                 0.5f,-0.5f,0.5f
-
         };
-        this.vertices = vertices;
-
-        float[] textureCoords = {
-
-                0,0,
-                0,1,
-                1,1,
-                1,0,
-                0,0,
-                0,1,
-                1,1,
-                1,0,
-                0,0,
-                0,1,
-                1,1,
-                1,0,
-                0,0,
-                0,1,
-                1,1,
-                1,0,
-                0,0,
-                0,1,
-                1,1,
-                1,0,
-                0,0,
-                0,1,
-                1,1,
-                1,0
+        return vertices;
+    }
 
 
-        };
-        this.textureCoords = textureCoords;
-
+    public static int[] getIndices() {
 
         int[] indices = {
                 0,1,3,
@@ -92,24 +93,7 @@ public class Cube {
                 20,21,23,
                 23,21,22
         };
-        this.indices = indices;
-
-    }
-
-    public float[] getTextureCoords() {
-        return textureCoords;
-    }
-
-    public float[] getVertices() {
-        return vertices;
-    }
-
-    public int[] getIndices() {
         return indices;
-    }
-
-    public float[] getNormals() {
-        return normals;
     }
 
 }

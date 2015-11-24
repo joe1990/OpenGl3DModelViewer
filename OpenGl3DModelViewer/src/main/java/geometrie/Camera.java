@@ -13,13 +13,10 @@ public class Camera {
     private float angleAroundModel = 0;
 
 
-        //3d vector to store the camera's position in
-        public Vector3f position = new Vector3f(0,0,0);
-        //the rotation around the Y axis of the camera
-        public float yaw;
-        //the rotation around the X axis of the camera
-        public float pitch; //Rotation x,y,z
-        public float roll;
+        public Vector3f position = new Vector3f(0,0,0); //Kamera Position
+        public float yaw; //rotation um die Y-Achse der Kamera
+        public float pitch; //rotation um die X-Achse der Kamera
+        public float roll; //rotation um die Z-Achse der Kamera
 
 
         public Camera(){
