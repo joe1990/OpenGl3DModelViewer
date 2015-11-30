@@ -1,13 +1,18 @@
 # OpenGl3DModelViewer
 
 
-##To do:
+###To do:
 
 1. GUI mit FileOpenDialog
 2. Kamera/Mausrotation 
-3. Light Optional Diffuse (Ambient und Spekular funktionieren)
-4. Gitternetz (mit oder ohne transformationMatrix)
+..* class Camera
+3. Light Optional Diffuse 
+..* Ambient und Spekular funktionieren
+..* Uniform -> Shaders
+4. Gitternetz 
+..* Pro Linie ein weiteres VAO -> uneffizient
+..* mit transformationMatrix -> effizient
 5. Refactoring und Kommentare schreiben
-5. Bericht Schreiben
+5. Bericht Verfassen
 6. Präsi 18.01.2016 (3Min pro Person)
 
