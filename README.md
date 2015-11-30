@@ -1,9 +1,9 @@
 # OpenGl3DModelViewer
 
 
-To do:
+##To do:
 
--GUI mit FileOpenDialog
--Kamera/Mausrotation
--Light
--Gitternetz
+1. GUI mit FileOpenDialog
+2. Kamera/Mausrotation
+3. Light
+4. Gitternetz
