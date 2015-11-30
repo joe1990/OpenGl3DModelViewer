@@ -10,15 +10,15 @@
 
 3. Light Optional Diffuse 
 
-Ambient und Spekular funktionieren
+  *Ambient und Spekular funktionieren
 
-Uniform -> Shaders
+  *Uniform -> Shaders
 
 4. Gitternetz 
 
-Pro Linie ein weiteres VAO -> uneffizient
+  *Pro Linie ein weiteres VAO -> uneffizient
 
-mit transformationMatrix -> effizient
+  *mit transformationMatrix -> effizient
 
 5. Refactoring und Kommentare schreiben
 5. Bericht Verfassen
