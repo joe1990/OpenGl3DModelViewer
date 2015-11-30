@@ -6,7 +6,7 @@
 1. GUI mit FileOpenDialog
 2. Kamera/Mausrotation 
 
-class Camera
+  *class Camera
 
 3. Light Optional Diffuse 
 
