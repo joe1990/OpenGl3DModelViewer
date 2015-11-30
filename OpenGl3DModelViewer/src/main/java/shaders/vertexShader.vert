@@ -14,6 +14,8 @@ uniform vec3 lightColor;
 
 void main()
 {
+
+//  gl_Position = projection * transformation * view * vec4(position.x, position.y, position.z-, 1.0f);
     gl_Position = projection * view * vec4(position.x, position.y-5, position.z-20, 1.0f);
     color = vec3(0.5, 0.5, 1.0);
 
