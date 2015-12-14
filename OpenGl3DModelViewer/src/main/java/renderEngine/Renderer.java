@@ -1,10 +1,12 @@
 package renderEngine;
 
+import geometrie.Maths;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector3f;
 import shaders.ShaderCollection;
 
 /**
@@ -26,25 +28,30 @@ public class Renderer {
     }
 
     public void prepare(){
-        GL11.glClear(GL11.GL_DEPTH_TEST);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT|GL11.GL_DEPTH_BUFFER_BIT);
         GL11.glClearColor(0.5f,0,0,1);
 }
 
-    public void render(RawModel model){
-        GL30.glBindVertexArray(model.getVaoId());
-        GL20.glEnableVertexAttribArray(0); //activate Positions
-        GL20.glEnableVertexAttribArray(1); //Activate Normals
-        GL11.glDrawElements(GL11.GL_TRIANGLES, model.getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
-        GL20.glDisableVertexAttribArray(0); //deactivate Positions
-        GL20.glDisableVertexAttribArray(0); //deactivate Normas
+    public void render(Entity entity, ShaderCollection shader){
+        GL30.glBindVertexArray(entity.getModel().getVaoId());
+        GL20.glEnableVertexAttribArray(0); //activate Vertices
+        GL20.glEnableVertexAttribArray(1); //activate Normals
+        Matrix4f transformationMatrix = Maths.createTransformationMatrx(
+                entity.getTranslation(),
+                new Vector3f(entity.getRotX(),entity.getRotY(),entity.getRotZ()),
+                entity.getScale());
+        shader.loadTransformationMatrix(transformationMatrix);
+        GL11.glDrawElements(GL11.GL_TRIANGLES, entity.getModel().getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
+        GL20.glDisableVertexAttribArray(0); //deactivate Vertices
+        GL20.glDisableVertexAttribArray(1); //deactivate Normals
         GL30.glBindVertexArray(0); //deactivate VAO
     }
 
     public void renderLine(RawModel model){
 
         GL30.glBindVertexArray(model.getVaoId());
-        GL20.glEnableVertexAttribArray(0); // Aktiviere Vertexe
+        GL20.glEnableVertexAttribArray(0); // activate Vertices
         GL11.glDrawElements(GL11.GL_LINES, model.getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
         GL20.glDisableVertexAttribArray(0);
         GL30.glBindVertexArray(0);

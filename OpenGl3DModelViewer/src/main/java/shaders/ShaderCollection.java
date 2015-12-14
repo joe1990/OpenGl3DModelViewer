@@ -16,6 +16,7 @@ public class ShaderCollection extends Shader{
 
     private int location_projectionMatrix;
     private int location_viewMatrix;
+    private int location_transformationMatrix;
     private int location_lightPosition;
     private int location_lightColor;
 
@@ -24,6 +25,8 @@ public class ShaderCollection extends Shader{
 
         location_projectionMatrix = super.getUniformLocation("projection");
         location_viewMatrix = super.getUniformLocation("view");
+        location_transformationMatrix = super.getUniformLocation("transformation");
+
         location_lightPosition = super.getUniformLocation("lightPosition");
         location_lightColor = super.getUniformLocation("lightColor");
 
@@ -36,6 +39,10 @@ public class ShaderCollection extends Shader{
     public void loadViewMatrix(Camera camera){
         Matrix4f viewMatrix = Maths.createViewMatrix(camera);
         super.loadMatrix(location_viewMatrix, viewMatrix);
+    }
+
+    public void loadTransformationMatrix(Matrix4f matrix){
+        super.loadMatrix(location_transformationMatrix, matrix);
     }
 
     public void loadLight(Light light){

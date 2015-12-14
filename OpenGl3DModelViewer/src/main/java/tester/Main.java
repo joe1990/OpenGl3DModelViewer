@@ -7,10 +7,7 @@ import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector3f;
-import renderEngine.GPUInterface;
-import renderEngine.OBJReader;
-import renderEngine.RawModel;
-import renderEngine.Renderer;
+import renderEngine.*;
 import shaders.ShaderCollection;
 import userInterface.DisplayManager;
 
@@ -28,19 +25,17 @@ public class Main {
         GPUInterface loader = new GPUInterface();
         ShaderCollection shader = new ShaderCollection();
         Renderer renderer = new Renderer(shader);
-        Camera camera = new Camera();
-        Light light = new Light(new Vector3f(0,0,0), new Vector3f(1,1,1));
 
-        //RawModel model = loader.loadVAO(Cube.getVertices(), Cube.getIndices());
+
+        Light light = new Light(new Vector3f(0,100,0), new Vector3f(1,1,1));
 
         RawModel coordSystemModel = loader.loadVAO(CoordSystem.getVertices(), CoordSystem.getIndices());
 
 
-       // Line line = new Line(0, -10, 0, 10);
-       // RawModel lineModel = loader.loadVAO(line.getVertices(), line.getIndices());
-
         RawModel dragonModel = OBJReader.loadObjModel("dragon", loader);
+        Entity dragonEntity = new Entity(dragonModel, new Vector3f(0,-5,-20) ,0,0,0,0.8f); //Translation: (0,-5,20) and Scale: 0.8
 
+        Camera camera = new Camera(dragonEntity);
 
         while(DisplayManager.isNotCloseRequested()){
             camera.move();
@@ -50,7 +45,7 @@ public class Main {
             shader.loadLight(light);
             shader.loadViewMatrix(camera);
 
-            renderer.render(dragonModel);
+            renderer.render(dragonEntity,shader);
             renderer.renderLine(coordSystemModel);
 
             shader.stop();

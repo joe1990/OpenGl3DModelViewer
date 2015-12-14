@@ -1,8 +1,8 @@
 package geometrie;
 
-import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.util.vector.Vector3f;
+import renderEngine.Entity;
 
 /**
  * Created by michael on 23.11.2015.
@@ -13,23 +13,21 @@ public class Camera {
     private float angleAroundModel = 0;
 
 
+    private  Entity entity;
+
         public Vector3f position = new Vector3f(0,0,0); //Kamera Position
         public float yaw; //rotation um die Y-Achse der Kamera
         public float pitch; //rotation um die X-Achse der Kamera
         public float roll; //rotation um die Z-Achse der Kamera
 
 
-        public Camera(){
-            calculateZoom();
-            calculatePitch();
-            calculateAngleAroundModel();
-            float horizontalDistance = calculateHorizontalDistance();
-            float verticalDistance = calculateVerticalDistance();
-            //calculateCameraPosition(horizontalDistance, verticalDistance);
+        public Camera(Entity entity){
+            this.entity = entity;
         }
 
         public void move(){
 
+            /*
             if(Keyboard.isKeyDown(Keyboard.KEY_W)){
                 position.z -= 0.2f;
             }
@@ -48,16 +46,25 @@ public class Camera {
             if(Keyboard.isKeyDown(Keyboard.KEY_Y)){
                 position.y -= 0.2f;
             }
+            */
             calculateZoom();
+            calculatePitch();
+            calculateAngleAroundModel();
+
+            float horizontalDistance = calculateHorizontalDistance();
+            float verticalDistance = calculateVerticalDistance();
+
+            calculateCameraPosition(horizontalDistance, verticalDistance);
+            this.yaw = 180 - (entity.getRotY() + angleAroundModel);
         }
 
-        private void calculateCameraPosition(float thorizontalDistance, float verticalDistance ){
-            float theta = angleAroundModel;
-            float offsetX = thorizontalDistance * (float) Math.sin(Math.toRadians(theta));
-            float offsetZ = thorizontalDistance * (float)Math.cos(Math.toRadians(theta));
-            position.x = -offsetX;
-            position.z = -offsetZ;
-            position.y = verticalDistance;
+        private void calculateCameraPosition(float horizontalDistance, float verticalDistance ){
+            float theta = entity.getRotY() + angleAroundModel;
+            float offsetX = horizontalDistance * (float)Math.sin(Math.toRadians(theta));
+            float offsetZ = horizontalDistance * (float)Math.cos(Math.toRadians(theta));
+            position.x = entity.getTranslation().x - offsetX;
+            position.z = entity.getTranslation().z - offsetZ;
+            position.y = entity.getTranslation().y + verticalDistance;
         }
 
         private float calculateHorizontalDistance(){

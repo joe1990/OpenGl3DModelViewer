@@ -13,8 +13,9 @@ void main()
     vec3 unitToLightVector = normalize(toLightVector);
 
     float nDot = dot(unitNormal, unitToLightVector);
-    float brightness = max(nDot, 0.1);
+    float brightness = max(nDot, 0.05);
     vec3 diffuse = brightness * lightColor;
 
     gl_FragColor = vec4(diffuse, 1.0) * vec4(color, 1.0);
+   // gl_FragColor = vec4(color, 1.0);
 }
