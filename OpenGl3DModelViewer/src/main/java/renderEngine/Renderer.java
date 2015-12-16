@@ -29,8 +29,8 @@ public class Renderer {
 
     public void prepare(){
         GL11.glEnable(GL11.GL_DEPTH_TEST);
-        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT|GL11.GL_DEPTH_BUFFER_BIT);
-        GL11.glClearColor(0.8f,0.8f,0.8f,1); //Backgroundcolor in RGB
+        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+        GL11.glClearColor(0.8f, 0.8f, 0.8f, 1); //Backgroundcolor in RGB
 }
 
     public void render(Entity entity, ShaderCollection shader){
@@ -42,6 +42,16 @@ public class Renderer {
                 new Vector3f(entity.getRotX(),entity.getRotY(),entity.getRotZ()),
                 entity.getScale());
         shader.loadTransformationMatrix(transformationMatrix);
+        GL11.glDrawElements(GL11.GL_TRIANGLES, entity.getModel().getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
+        GL20.glDisableVertexAttribArray(0); //deactivate Vertices
+        GL20.glDisableVertexAttribArray(1); //deactivate Normals
+        GL30.glBindVertexArray(0); //deactivate VAO
+    }
+
+    public void render(Entity entity){
+        GL30.glBindVertexArray(entity.getModel().getVaoId());
+        GL20.glEnableVertexAttribArray(0); //activate Vertices
+        GL20.glEnableVertexAttribArray(1); //activate Normals
         GL11.glDrawElements(GL11.GL_TRIANGLES, entity.getModel().getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
         GL20.glDisableVertexAttribArray(0); //deactivate Vertices
         GL20.glDisableVertexAttribArray(1); //deactivate Normals
