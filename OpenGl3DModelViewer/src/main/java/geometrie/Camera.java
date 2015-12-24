@@ -8,7 +8,7 @@ import org.lwjgl.util.vector.Vector3f;
  */
 public class Camera {
 
-    private float distanceToModel = 20;
+    private float distanceToModel = 30;
     private float angleAroundModel = 180;
 
     public Vector3f position = new Vector3f(0,0,0); //Kamera Position

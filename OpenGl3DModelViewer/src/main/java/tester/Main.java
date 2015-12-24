@@ -27,13 +27,13 @@ public class Main {
         Renderer renderer = new Renderer(shader);
 
 
-        Light light = new Light(new Vector3f(0,10,10), new Vector3f(1,1,1));
+        Light light = new Light(new Vector3f(0,0,100), new Vector3f(1,1,1));
 
         RawModel coordSystemModel = loader.loadVAO(CoordSystem.getVertices(), CoordSystem.getIndices());
 
 
         RawModel dragonModel = OBJReader.loadObjModel("dragon", loader);
-        Entity dragonEntity = new Entity(dragonModel, new Vector3f(0,0,-10) ,0,0,0,1); //Translation: (0,-5,20) and Scale: 0.8
+        Entity dragonEntity = new Entity(dragonModel, new Vector3f(0,0,0) ,0,0,0,1); //Translation: (0,-5,20) and Scale: 0.8
 
         Camera camera = new Camera();
 
