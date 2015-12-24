@@ -27,7 +27,7 @@ public class Main {
         Renderer renderer = new Renderer(shader);
 
 
-        Light light = new Light(new Vector3f(0,0,100), new Vector3f(1,1,1));
+        Light light = new Light(new Vector3f(0,100,100), new Vector3f(1,1,1));
 
         RawModel coordSystemModel = loader.loadVAO(CoordSystem.getVertices(), CoordSystem.getIndices());
 

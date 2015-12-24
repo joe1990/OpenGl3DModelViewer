@@ -23,10 +23,10 @@ void main()
 
     vec4 world = transformation * vec4(position, 1.0f);
     gl_Position = projection * view * world;
-    color = vec3(0.5, 0.1, 1.0);
+    color = vec3(1.0, 0.0, 0.0); //Farbe des Objektes
 
-    //surfaceNormal = normal;
+    surfaceNormal = normal;
     surfaceNormal = (transformation * vec4(normal, 0.0)).xyz;
-    toLightVector = lightPosition - position;
+    toLightVector = lightPosition - position.xyz;
     toCameraVector = (inverse(view) * vec4(0,0,0,1.0)).xyz - world.xyz;
 }

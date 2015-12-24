@@ -15,17 +15,17 @@ void main()
 
     //Diffuse
     float nDot = dot(unitNormal, unitToLightVector);
-    float brightness = max(nDot, 0.05); //Ambient
+    float brightness = max(nDot, 0.4); //Ambient
     vec3 diffuse = brightness * lightColor;
 
     //spekular
     vec3 unitVectorToCamera = normalize(toCameraVector);
-    vec3 lightDirection = -toLightVector;
+    vec3 lightDirection = -unitToLightVector;
     vec3 reflectedLightDirection = reflect(lightDirection, unitNormal);
 
     float specularFactor = dot(reflectedLightDirection, unitVectorToCamera);
     specularFactor = max(specularFactor, 0.0);
-    float dampedFactor = pow(specularFactor, 10);
+    float dampedFactor = pow(specularFactor, 5);
     vec3 finalSpecular = dampedFactor * 1 * lightColor;
 
     //Ohne Licht
