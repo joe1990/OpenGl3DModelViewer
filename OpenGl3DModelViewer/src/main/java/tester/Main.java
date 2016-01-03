@@ -1,7 +1,6 @@
 package tester;
 
 import geometrie.Camera;
-import geometrie.CoordSystem;
 import geometrie.Light;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
@@ -10,6 +9,9 @@ import org.lwjgl.util.vector.Vector3f;
 import renderEngine.*;
 import shaders.ShaderCollection;
 import userInterface.DisplayManager;
+import userInterface.Window;
+
+import java.io.File;
 
 /**
  * Created by holzer on 16.11.2015.
@@ -17,23 +19,20 @@ import userInterface.DisplayManager;
 public class Main {
 
 
-
     public static void main(String[] args) {
 
         DisplayManager.create();
+        Entity entity = null;
 
         GPUInterface loader = new GPUInterface();
         ShaderCollection shader = new ShaderCollection();
         Renderer renderer = new Renderer(shader);
 
+        Light light = new Light(new Vector3f(0,100,100), new Vector3f(1,1,1));
 
-        Light light = new Light(new Vector3f(0,100,100), new Vector3f(0.5f,1,1));
-
-        RawModel coordSystemModel = loader.loadVAO(CoordSystem.getVertices(), CoordSystem.getIndices());
-
-
-        RawModel dragonModel = OBJReader.loadObjModel("dragon", loader);
-        Entity dragonEntity = new Entity(dragonModel, new Vector3f(0,0,0) ,0,0,0,1); //Translation: (0,-5,20) and Scale: 0.8
+       // RawModel coordSystemModel = loader.loadVAO(CoordSystem.getVertices(), CoordSystem.getIndices());
+       // RawModel dragonModel = OBJReader.loadObjModel("bunny", loader);
+       // Entity entity = new Entity(dragonModel, new Vector3f(0,0,0) ,0,0,0,1);
 
         Camera camera = new Camera();
 
@@ -45,9 +44,18 @@ public class Main {
             shader.loadLight(light);
             shader.loadViewMatrix(camera);
 
-            renderer.renderLine(coordSystemModel);
+          //  renderer.renderLine(coordSystemModel);
+          //  renderer.render(entity, shader);
 
-            renderer.render(dragonEntity, shader);
+            File wavefrontFile = Window.getWavefrontFile();
+            if(wavefrontFile != null){
+                RawModel dragonModel = OBJReader.loadObjModel(wavefrontFile, loader);
+                entity = new Entity(dragonModel, new Vector3f(0,0,0) ,0,0,0,1);
+            }
+
+            if(entity != null) {
+                renderer.render(entity, shader);
+            }
 
             shader.stop();
             DisplayManager.update();

@@ -12,14 +12,17 @@ import org.lwjgl.opengl.PixelFormat;
 public class DisplayManager {
 
     private static final int fps = 120;
-    public static Window window = new Window();
-    public static FPSCalculator fpsCalc = new FPSCalculator();
+    public static Window window;
+    public static FPSCalculator fpsCalc;
 
     public static void create(){
 
         ContextAttribs attribs = new ContextAttribs(4, 1); //Use OpenGL Version 4.1
         attribs.withForwardCompatible(true);
         attribs.withProfileCore(true);
+
+        window = new Window();
+        fpsCalc = new FPSCalculator();
 
         try{
             Display.setParent(window.getCanvas());

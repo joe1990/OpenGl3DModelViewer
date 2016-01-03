@@ -14,8 +14,8 @@ import java.util.ArrayList;
  * Created by michael on 16.11.2015.
  */
 public class GPUInterface {
-    private ArrayList<Integer> vaos = new ArrayList<Integer>();
-    private ArrayList<Integer> vbos = new ArrayList<Integer>();
+    public ArrayList<Integer> vaos = new ArrayList<Integer>();
+    public ArrayList<Integer> vbos = new ArrayList<Integer>();
 
     public RawModel loadVAO(float[] positions, int[] indices, float normals[]){
         int vaoID = createVAO();

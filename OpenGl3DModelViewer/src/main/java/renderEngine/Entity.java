@@ -7,7 +7,7 @@ import org.lwjgl.util.vector.Vector3f;
  */
 public class Entity {
 
-    private RawModel model;
+    public RawModel model;
     private Vector3f translation;
     private float rotX;
     private float rotY;
@@ -70,4 +70,5 @@ public class Entity {
     public void setScale(float scale) {
         this.scale = scale;
     }
+
 }

@@ -1,11 +1,14 @@
 package userInterface;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 
 /**
  * Created by michael on 16.11.2015.
@@ -16,6 +19,7 @@ public class Window {
     private static JFrame frame;
     private JTextField textField;
     private Canvas canvas;
+    private static String wavefrontFile;
 
     public static boolean closeRequested = false;
 
@@ -33,6 +37,7 @@ public class Window {
         //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.setResizable(false);
 
         canvas = new Canvas();
         frame.getContentPane().add(canvas);
@@ -49,14 +54,44 @@ public class Window {
 
         textField = new JTextField();
         panel.add(textField);
-        textField.setColumns(50);
+        textField.setColumns(40);
 
-        JButton btnNewButton = new JButton("Load file");
-        btnNewButton.addActionListener(new ActionListener() {
+        JButton btnSelect = new JButton("Select a file");
+        JButton btnOpen = new JButton("Open");
+
+        btnSelect.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
+
+                FileFilter filter = new FileNameExtensionFilter("Wavefront OBJ", "obj");
+                JFileChooser fileChooser = new JFileChooser();
+
+                // Filter wird dem JFileChooser hinzugefügt
+                fileChooser.setFileFilter(filter);
+                fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+                int result = fileChooser.showOpenDialog(null);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    File selectedFile = fileChooser.getSelectedFile();
+                    wavefrontFile = selectedFile.getAbsolutePath();
+                    textField.setText(wavefrontFile);
+                   // System.out.println("Selected file: " + selectedFile.getAbsolutePath())
+                }
             }
         });
-        panel.add(btnNewButton);
+
+        btnOpen.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+
+                File file = new File(textField.getText());
+                if(file.exists() && !file.isDirectory()) {
+                    wavefrontFile = textField.getText();
+                }else{
+                    System.out.println("File " + textField.getText() + " not found");
+                }
+            }
+        });
+
+        panel.add(btnSelect);
+        panel.add(btnOpen);
     }
 
     public static void setTitle(String title){
@@ -85,6 +120,17 @@ public class Window {
 
     public int getCanvasWidth(){
         return canvas.getWidth();
+    }
+
+    public static File getWavefrontFile(){
+
+        if(wavefrontFile != null && !wavefrontFile.isEmpty()) {
+            File file =  new File(wavefrontFile);
+            wavefrontFile = new String();
+            return file;
+        }else{
+            return null;
+        }
     }
 
 }
