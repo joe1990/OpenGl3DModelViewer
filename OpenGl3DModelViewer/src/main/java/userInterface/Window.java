@@ -64,6 +64,7 @@ public class Window {
 
                 FileFilter filter = new FileNameExtensionFilter("Wavefront OBJ", "obj");
                 JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Open Wavefront");
 
                 // Filter wird dem JFileChooser hinzugefügt
                 fileChooser.setFileFilter(filter);

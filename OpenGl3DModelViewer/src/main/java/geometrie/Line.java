@@ -5,25 +5,20 @@ package geometrie;
  */
 public class Line {
 
-    float[] vertices = new float[6];
+    public static float[] getVertices() {
 
-    public Line(float fromX, float fromZ, float toX, float toZ){
-        vertices[0] = fromX;
-        vertices[1] = 0.0f;
-        vertices[2] = fromZ;
-        vertices[3] = toX;
-        vertices[4] = 0.0f;
-        vertices[5] = toZ;
-    }
-
-    public float[] getVertices() {
+        float[] vertices = {
+                0.0f, 0.0f, 0.0f,
+                1.0f, 0.0f, 0.0f,
+        };
         return vertices;
     }
 
 
-    public int[] getIndices() {
+    public static int[] getIndices() {
+
         int[] indices = {
-            0,1
+                0, 1
         };
         return indices;
     }

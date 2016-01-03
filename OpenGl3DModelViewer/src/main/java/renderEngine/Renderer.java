@@ -48,13 +48,18 @@ public class Renderer {
         GL30.glBindVertexArray(0); //deactivate VAO
     }
 
-    public void render(Entity entity){
+    public void renderLine(Entity entity, ShaderCollection shader){
         GL30.glBindVertexArray(entity.getModel().getVaoId());
         GL20.glEnableVertexAttribArray(0); //activate Vertices
-        GL20.glEnableVertexAttribArray(1); //activate Normals
-        GL11.glDrawElements(GL11.GL_TRIANGLES, entity.getModel().getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
+        //GL20.glEnableVertexAttribArray(1); //activate Normals
+        Matrix4f transformationMatrix = Maths.createTransformationMatrx(
+                entity.getTranslation(),
+                new Vector3f(entity.getRotX(),entity.getRotY(),entity.getRotZ()),
+                entity.getScale());
+        shader.loadTransformationMatrix(transformationMatrix);
+        GL11.glDrawElements(GL11.GL_LINES, entity.getModel().getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
         GL20.glDisableVertexAttribArray(0); //deactivate Vertices
-        GL20.glDisableVertexAttribArray(1); //deactivate Normals
+        //GL20.glDisableVertexAttribArray(1); //deactivate Normals
         GL30.glBindVertexArray(0); //deactivate VAO
     }
 

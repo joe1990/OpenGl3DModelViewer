@@ -2,6 +2,7 @@ package tester;
 
 import geometrie.Camera;
 import geometrie.Light;
+import geometrie.Line;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
@@ -12,6 +13,7 @@ import userInterface.DisplayManager;
 import userInterface.Window;
 
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  * Created by holzer on 16.11.2015.
@@ -29,12 +31,19 @@ public class Main {
         Renderer renderer = new Renderer(shader);
 
         Light light = new Light(new Vector3f(0,100,100), new Vector3f(1,1,1));
+        Camera camera = new Camera();
 
        // RawModel coordSystemModel = loader.loadVAO(CoordSystem.getVertices(), CoordSystem.getIndices());
        // RawModel dragonModel = OBJReader.loadObjModel("bunny", loader);
        // Entity entity = new Entity(dragonModel, new Vector3f(0,0,0) ,0,0,0,1);
 
-        Camera camera = new Camera();
+
+        //Gitternetz
+        RawModel lineModel = loader.loadVAO(Line.getVertices(), Line.getIndices());
+        ArrayList<Entity> lineGrid = new ArrayList<Entity>();
+
+        Entity lineEntity = new Entity(lineModel, new Vector3f(0,0,0) ,0,0,0,1);
+        lineGrid.add(lineEntity);
 
         while(DisplayManager.isNotCloseRequested()){
             camera.move();
@@ -46,6 +55,10 @@ public class Main {
 
           //  renderer.renderLine(coordSystemModel);
           //  renderer.render(entity, shader);
+
+            for(Entity line:lineGrid) {
+                renderer.renderLine(line, shader);
+            }
 
             File wavefrontFile = Window.getWavefrontFile();
             if(wavefrontFile != null){
