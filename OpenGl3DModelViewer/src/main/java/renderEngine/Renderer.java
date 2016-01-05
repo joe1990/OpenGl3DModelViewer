@@ -5,6 +5,7 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
+import org.lwjgl.util.glu.Sphere;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 import shaders.ShaderCollection;
@@ -37,9 +38,9 @@ public class Renderer {
         GL30.glBindVertexArray(entity.getModel().getVaoId());
         GL20.glEnableVertexAttribArray(0); //activate Vertices
         GL20.glEnableVertexAttribArray(1); //activate Normals
-        Matrix4f transformationMatrix = Maths.createTransformationMatrx(
+        Matrix4f transformationMatrix = Maths.createTransformationMatrix(
                 entity.getTranslation(),
-                new Vector3f(entity.getRotX(),entity.getRotY(),entity.getRotZ()),
+                new Vector3f(entity.getRotX(), entity.getRotY(), entity.getRotZ()),
                 entity.getScale());
         shader.loadTransformationMatrix(transformationMatrix);
         GL11.glDrawElements(GL11.GL_TRIANGLES, entity.getModel().getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
@@ -48,13 +49,13 @@ public class Renderer {
         GL30.glBindVertexArray(0); //deactivate VAO
     }
 
-    public void renderLine(Entity entity, ShaderCollection shader){
+    public void renderLine(Entity entity, ShaderCollection shader) {
         GL30.glBindVertexArray(entity.getModel().getVaoId());
         GL20.glEnableVertexAttribArray(0); //activate Vertices
         //GL20.glEnableVertexAttribArray(1); //activate Normals
-        Matrix4f transformationMatrix = Maths.createTransformationMatrx(
+        Matrix4f transformationMatrix = Maths.createTransformationMatrix(
                 entity.getTranslation(),
-                new Vector3f(entity.getRotX(),entity.getRotY(),entity.getRotZ()),
+                new Vector3f(entity.getRotX(), entity.getRotY(), entity.getRotZ()),
                 entity.getScale());
         shader.loadTransformationMatrix(transformationMatrix);
         GL11.glDrawElements(GL11.GL_LINES, entity.getModel().getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
@@ -62,6 +63,7 @@ public class Renderer {
         //GL20.glDisableVertexAttribArray(1); //deactivate Normals
         GL30.glBindVertexArray(0); //deactivate VAO
     }
+
 
     private void createProjectionMatrix() {
         float aspectRatio = (float) Display.getWidth() / (float) Display.getHeight();

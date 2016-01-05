@@ -8,7 +8,7 @@ import org.lwjgl.util.vector.Vector3f;
  */
 public class Maths {
 
-    public static Matrix4f createTransformationMatrx(Vector3f translation, Vector3f rotation, float scale){
+    public static Matrix4f createTransformationMatrix(Vector3f translation, Vector3f rotation, float scale){
         Matrix4f matrix = new Matrix4f();
         matrix.setIdentity();
         Matrix4f.translate(translation, matrix, matrix);

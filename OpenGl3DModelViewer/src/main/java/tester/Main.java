@@ -1,8 +1,10 @@
 package tester;
 
 import geometrie.Camera;
+import geometrie.Cube;
 import geometrie.Light;
 import geometrie.Line;
+import jdk.nashorn.internal.runtime.regexp.joni.constants.EncloseType;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
@@ -31,7 +33,9 @@ public class Main {
         Renderer renderer = new Renderer(shader);
 
         //init Light
-        Light light = new Light(new Vector3f(0,100,100), new Vector3f(1,1,1));
+        Light light = new Light(new Vector3f(0,15,15), new Vector3f(1,1,1));
+        RawModel sunModel = OBJReader.loadObjModel(new File("ressources/sphere.obj"), loader);
+        Entity sunEntity = new Entity(sunModel, new Vector3f(0,15,15), 0, 0, 0, 1);
 
         //init Camera
         Camera camera = new Camera();
@@ -79,9 +83,12 @@ public class Main {
           //  renderer.render(entity, shader);
 
             //Render grid
-            for(Entity line:lineGrid) {
+            for(Entity line : lineGrid) {
                 renderer.renderLine(line, shader);
             }
+
+            //Render sun
+            renderer.render(sunEntity, shader);
 
             //Render model
             File wavefrontFile = Window.getWavefrontFile();
