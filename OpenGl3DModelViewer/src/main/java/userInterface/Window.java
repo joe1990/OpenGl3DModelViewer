@@ -34,17 +34,20 @@ public class Window {
         frame = new JFrame();
         frame.setTitle("");
         frame.setBounds(100, 100, 1200, 800);
-        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.setResizable(false);
 
+        //Frame icon
+        ImageIcon img = new ImageIcon("ressources\\logo.png");
+        frame.setIconImage(img.getImage());
+
+        //Canvas
         canvas = new Canvas();
         frame.getContentPane().add(canvas);
 
         frame.addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosing(WindowEvent e){
+            public void windowClosing(WindowEvent e) {
                 closeRequested = true;
             }
         });
@@ -52,9 +55,10 @@ public class Window {
         JPanel panel = new JPanel();
         frame.getContentPane().add(panel, BorderLayout.NORTH);
 
+        //Textfield
         textField = new JTextField();
-        panel.add(textField);
         textField.setColumns(40);
+        panel.add(textField);
 
         JButton btnSelect = new JButton("Select a file");
         JButton btnOpen = new JButton("Open");
