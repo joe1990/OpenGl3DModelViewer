@@ -13,7 +13,7 @@ public class Camera {
 
     public Vector3f position = new Vector3f(0,0,0); //Kamera Position
     public float yaw; //rotation um die Y-Achse der Kamera
-    public float pitch; //rotation um die X-Achse der Kamera
+    public float pitch = 20; //rotation um die X-Achse der Kamera
     public float roll; //rotation um die Z-Achse der Kamera
 
 

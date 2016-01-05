@@ -63,16 +63,6 @@ public class Renderer {
         GL30.glBindVertexArray(0); //deactivate VAO
     }
 
-    public void renderLine(RawModel model){
-
-        GL30.glBindVertexArray(model.getVaoId());
-        GL20.glEnableVertexAttribArray(0); // activate Vertices
-        GL11.glDrawElements(GL11.GL_LINES, model.getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
-        GL20.glDisableVertexAttribArray(0);
-        GL30.glBindVertexArray(0);
-
-    }
-
     private void createProjectionMatrix() {
         float aspectRatio = (float) Display.getWidth() / (float) Display.getHeight();
         float y_scale = (float) ((1f / Math.tan(Math.toRadians(FOV / 2f))) * aspectRatio);
