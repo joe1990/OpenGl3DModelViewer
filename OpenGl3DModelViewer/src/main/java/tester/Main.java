@@ -30,25 +30,47 @@ public class Main {
         ShaderCollection shader = new ShaderCollection();
         Renderer renderer = new Renderer(shader);
 
+        //init Light
         Light light = new Light(new Vector3f(0,100,100), new Vector3f(1,1,1));
+
+        //init Camera
         Camera camera = new Camera();
 
-       // RawModel coordSystemModel = loader.loadVAO(CoordSystem.getVertices(), CoordSystem.getIndices());
-       // RawModel dragonModel = OBJReader.loadObjModel("bunny", loader);
-       // Entity entity = new Entity(dragonModel, new Vector3f(0,0,0) ,0,0,0,1);
+        //RawModel coordSystemModel = loader.loadVAO(CoordSystem.getVertices(), CoordSystem.getIndices());
 
-
-        //Gitternetz
+        //Grid
         RawModel lineModel = loader.loadVAO(Line.getVertices(), Line.getIndices());
         ArrayList<Entity> lineGrid = new ArrayList<Entity>();
+        for(int i=0; i<11; i++) {
+            //horizontal grid lines
+            Entity h_xz = new Entity(lineModel, new Vector3f(0, 0, i), 0, 0, 0, 10);
+            lineGrid.add(h_xz);
+            Entity h_xnz = new Entity(lineModel, new Vector3f(0, 0, -i), 0, 0, 0, 10);
+            lineGrid.add(h_xnz);
+            Entity h_nxz = new Entity(lineModel, new Vector3f(0, 0, i), 0, 180, 0, 10);
+            lineGrid.add(h_nxz);
+            Entity h_nxnz = new Entity(lineModel, new Vector3f(0, 0, -i), 0, 180, 0, 10);
+            lineGrid.add(h_nxnz);
 
-        Entity lineEntity = new Entity(lineModel, new Vector3f(0,0,0) ,0,0,0,1);
-        lineGrid.add(lineEntity);
+            //vertical grid lines
+            Entity v_xz = new Entity(lineModel, new Vector3f(i, 0, 0), 0, 90, 0, 10);
+            lineGrid.add(v_xz);
+            Entity v_xnz = new Entity(lineModel, new Vector3f(-i, 0, 0), 0, 90, 0, 10);
+            lineGrid.add(v_xnz);
+            Entity v_nxz = new Entity(lineModel, new Vector3f(i, 0, 0), 0, 270, 0, 10);
+            lineGrid.add(v_nxz);
+            Entity v_nxnz = new Entity(lineModel, new Vector3f(-i, 0, 0), 0, 270, 0, 10);
+            lineGrid.add(v_nxnz);
+        }
 
+        //OpenGL main loop
         while(DisplayManager.isNotCloseRequested()){
+
+            //Render logic
             camera.move();
             renderer.prepare();
-            shader.start();
+
+            shader.start(); //Start shader
 
             shader.loadLight(light);
             shader.loadViewMatrix(camera);
@@ -56,21 +78,23 @@ public class Main {
           //  renderer.renderLine(coordSystemModel);
           //  renderer.render(entity, shader);
 
+            //Render grid
             for(Entity line:lineGrid) {
                 renderer.renderLine(line, shader);
             }
 
+            //Render models
             File wavefrontFile = Window.getWavefrontFile();
             if(wavefrontFile != null){
-                RawModel dragonModel = OBJReader.loadObjModel(wavefrontFile, loader);
-                entity = new Entity(dragonModel, new Vector3f(0,0,0) ,0,0,0,1);
+                RawModel rawModel = OBJReader.loadObjModel(wavefrontFile, loader);
+                entity = new Entity(rawModel, new Vector3f(0,0,0) ,0,0,0,1);
             }
 
             if(entity != null) {
                 renderer.render(entity, shader);
             }
 
-            shader.stop();
+            shader.stop(); //stop shader
             DisplayManager.update();
         }
 
@@ -78,6 +102,7 @@ public class Main {
         System.out.println("Display driver version: " + Display.getVersion());
         System.out.println("LWJGL version: " + Sys.getVersion());
 
+        //Delete Shader, VAO and VBO
         shader.cleanUp();
         loader.cleanUp();
         DisplayManager.close();

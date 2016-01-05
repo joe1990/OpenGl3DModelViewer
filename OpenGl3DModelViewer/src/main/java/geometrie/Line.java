@@ -8,8 +8,8 @@ public class Line {
     public static float[] getVertices() {
 
         float[] vertices = {
-                0.0f, 0.0f, 0.0f,
-                1.0f, 0.0f, 0.0f,
+                0, 0, 0,
+                1, 0, 0,
         };
         return vertices;
     }
