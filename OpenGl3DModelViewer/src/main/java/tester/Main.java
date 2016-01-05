@@ -41,25 +41,25 @@ public class Main {
         //Grid
         RawModel lineModel = loader.loadVAO(Line.getVertices(), Line.getIndices());
         ArrayList<Entity> lineGrid = new ArrayList<Entity>();
-        for(int i=0; i<11; i++) {
+        for(int i=0; i<21; i++) {
             //horizontal grid lines
-            Entity h_xz = new Entity(lineModel, new Vector3f(0, 0, i), 0, 0, 0, 10);
+            Entity h_xz = new Entity(lineModel, new Vector3f(0, 0, i), 0, 0, 0, 20);
             lineGrid.add(h_xz);
-            Entity h_xnz = new Entity(lineModel, new Vector3f(0, 0, -i), 0, 0, 0, 10);
+            Entity h_xnz = new Entity(lineModel, new Vector3f(0, 0, -i), 0, 0, 0, 20);
             lineGrid.add(h_xnz);
-            Entity h_nxz = new Entity(lineModel, new Vector3f(0, 0, i), 0, 180, 0, 10);
+            Entity h_nxz = new Entity(lineModel, new Vector3f(0, 0, i), 0, 180, 0, 20);
             lineGrid.add(h_nxz);
-            Entity h_nxnz = new Entity(lineModel, new Vector3f(0, 0, -i), 0, 180, 0, 10);
+            Entity h_nxnz = new Entity(lineModel, new Vector3f(0, 0, -i), 0, 180, 0, 20);
             lineGrid.add(h_nxnz);
 
             //vertical grid lines
-            Entity v_xz = new Entity(lineModel, new Vector3f(i, 0, 0), 0, 90, 0, 10);
+            Entity v_xz = new Entity(lineModel, new Vector3f(i, 0, 0), 0, 90, 0, 20);
             lineGrid.add(v_xz);
-            Entity v_xnz = new Entity(lineModel, new Vector3f(-i, 0, 0), 0, 90, 0, 10);
+            Entity v_xnz = new Entity(lineModel, new Vector3f(-i, 0, 0), 0, 90, 0, 20);
             lineGrid.add(v_xnz);
-            Entity v_nxz = new Entity(lineModel, new Vector3f(i, 0, 0), 0, 270, 0, 10);
+            Entity v_nxz = new Entity(lineModel, new Vector3f(i, 0, 0), 0, 270, 0, 20);
             lineGrid.add(v_nxz);
-            Entity v_nxnz = new Entity(lineModel, new Vector3f(-i, 0, 0), 0, 270, 0, 10);
+            Entity v_nxnz = new Entity(lineModel, new Vector3f(-i, 0, 0), 0, 270, 0, 20);
             lineGrid.add(v_nxnz);
         }
 
@@ -83,7 +83,7 @@ public class Main {
                 renderer.renderLine(line, shader);
             }
 
-            //Render models
+            //Render model
             File wavefrontFile = Window.getWavefrontFile();
             if(wavefrontFile != null){
                 RawModel rawModel = OBJReader.loadObjModel(wavefrontFile, loader);
