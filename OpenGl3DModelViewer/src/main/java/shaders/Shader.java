@@ -11,16 +11,22 @@ import java.io.FileReader;
 import java.nio.FloatBuffer;
 
 /**
- * Created by michael on 16.11.2015.
+ * Created by michael on 16.11.2015
+ *
+ * Shader class
  */
 public class Shader {
 
     private int programID;
     private int vertexShaderID;
     private int fragmentShaderID;
+    private static FloatBuffer matrixBuffer = BufferUtils.createFloatBuffer(16); //4x4
 
-    public static FloatBuffer matrixBuffer = BufferUtils.createFloatBuffer(16); //4x4
-
+    /**
+     *
+     * @param vertexFile
+     * @param fragmentFile
+     */
     public Shader(String vertexFile, String fragmentFile){
         vertexShaderID = loadShader(vertexFile, GL20.GL_VERTEX_SHADER);
         fragmentShaderID = loadShader(fragmentFile, GL20.GL_FRAGMENT_SHADER);
@@ -31,19 +37,29 @@ public class Shader {
 
         GL20.glBindAttribLocation(programID, 0, "position"); //Anstelle von glGetAttribLocation
         GL20.glBindAttribLocation(programID, 1, "normal");
+        GL20.glBindAttribLocation(programID, 2, "colour");
 
         GL20.glLinkProgram(programID);
         GL20.glValidateProgram(programID);
     }
 
+    /**
+     * starts the shader
+     */
     public void start(){
         GL20.glUseProgram(programID);
     }
 
+    /**
+     * stops the shader
+     */
     public void stop(){
         GL20.glUseProgram(0);
     }
 
+    /**
+     * clean up
+     */
     public void cleanUp(){
         stop();
         GL20.glDetachShader(programID, vertexShaderID);
@@ -53,30 +69,41 @@ public class Shader {
         GL20.glDeleteProgram(programID);
     }
 
-
+    /**
+     * get uniform location
+     * @param name
+     * @return
+     */
     public int getUniformLocation(String name){
         return GL20.glGetUniformLocation(programID, name);
     }
 
-    public void loadFloat(int location, float value){
-        GL20.glUniform1f(location, value);
-    }
-
+    /**
+     * load a vector into uniform
+     * @param location
+     * @param vector
+     */
     public void loadVector(int location, Vector3f vector){
         GL20.glUniform3f(location, vector.x, vector.y, vector.z);
     }
 
-    public void loadInt(int location, int value){
-        GL20.glUniform1i(location, value);
-    }
-
+    /**
+     * load a matrix into uniform
+     * @param location
+     * @param matrix
+     */
     public void loadMatrix(int location, Matrix4f matrix){
         matrix.store(matrixBuffer);
         matrixBuffer.flip(); //ready to read
         GL20.glUniformMatrix4(location, false, matrixBuffer);
     }
 
-
+    /**
+     * compile and load the shader
+     * @param file
+     * @param type
+     * @return shader id
+     */
     public static int loadShader(String file, int type){
         StringBuilder shaderSource = new StringBuilder();
         try {

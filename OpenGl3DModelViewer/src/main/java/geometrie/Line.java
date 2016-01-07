@@ -2,9 +2,14 @@ package geometrie;
 
 /**
  * Created by michael on 23.11.2015.
+ *
+ * Simple lines
  */
 public class Line {
 
+    /**
+     * @return vertices
+     */
     public static float[] getVertices() {
 
         float[] vertices = {
@@ -14,7 +19,10 @@ public class Line {
         return vertices;
     }
 
-
+    /**
+     * returns the lines indices
+     * @return indices
+     */
     public static int[] getIndices() {
 
         int[] indices = {

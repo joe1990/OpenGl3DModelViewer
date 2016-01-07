@@ -5,22 +5,30 @@ package renderEngine;
  */
 public class RawModel {
 
-    private int vaoId;
+    private int vaoID;
     private int vertexCount;
 
+    /**
+     * @param voaId
+     * @param vertexCount
+     */
     public RawModel(int voaId, int vertexCount){
-        this.vaoId = voaId;
+        this.vaoID = voaId;
         this.vertexCount = vertexCount;
     }
 
+    /**
+     * @return vaoID
+     */
     public int getVaoId() {
-        return vaoId;
+        return vaoID;
     }
 
+    /**
+     * @return vertexCount
+     */
     public int getVertexCount() {
         return vertexCount;
     }
-
-
 
 }

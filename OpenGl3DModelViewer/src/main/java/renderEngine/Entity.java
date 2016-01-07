@@ -4,16 +4,26 @@ import org.lwjgl.util.vector.Vector3f;
 
 /**
  * Created by michael on 14.12.2015.
+ *
+ * Entity class
  */
 public class Entity {
 
-    public RawModel model;
+    private RawModel model;
     private Vector3f translation;
     private float rotX;
     private float rotY;
     private float rotZ;
     private float scale;
 
+    /**
+     * @param model
+     * @param translation
+     * @param rotX
+     * @param rotY
+     * @param rotZ
+     * @param scale
+     */
     public Entity(RawModel model, Vector3f translation, float rotX, float rotY, float rotZ, float scale) {
         this.model = model;
         this.translation = translation;
@@ -23,52 +33,46 @@ public class Entity {
         this.scale = scale;
     }
 
+    /**
+     * @return model
+     */
     public RawModel getModel() {
         return model;
     }
 
-    public void setModel(RawModel model) {
-        this.model = model;
-    }
-
+    /**
+     * @return translation
+     */
     public Vector3f getTranslation() {
         return translation;
     }
 
-    public void setTranslation(Vector3f translation) {
-        this.translation = translation;
-    }
-
+    /**
+     * @return x rotation
+     */
     public float getRotX() {
         return rotX;
     }
 
-    public void setRotX(float rotX) {
-        this.rotX = rotX;
-    }
-
+    /**
+     * @return y rotation
+     */
     public float getRotY() {
         return rotY;
     }
 
-    public void setRotY(float rotY) {
-        this.rotY = rotY;
-    }
-
+    /**
+     * @return z rotation
+     */
     public float getRotZ() {
         return rotZ;
     }
 
-    public void setRotZ(float rotZ) {
-        this.rotZ = rotZ;
-    }
-
+    /**
+     * @return scale factor
+     */
     public float getScale() {
         return scale;
-    }
-
-    public void setScale(float scale) {
-        this.scale = scale;
     }
 
 }

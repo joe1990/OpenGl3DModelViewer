@@ -12,6 +12,8 @@ import java.io.File;
 
 /**
  * Created by michael on 16.11.2015.
+ *
+ * Window class - creates the user interface
  */
 
 public class Window {
@@ -29,15 +31,18 @@ public class Window {
         frame.setVisible(true);
     }
 
-
+    /**
+     * init
+     */
     private void initialize() {
+
         frame = new JFrame();
         frame.setTitle("");
         frame.setBounds(100, 100, 1200, 800);
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.setResizable(false);
 
-        //Frame icon
+        //frame icon
         ImageIcon img = new ImageIcon("ressources\\logo.png");
         frame.setIconImage(img.getImage());
 
@@ -52,6 +57,7 @@ public class Window {
             }
         });
 
+        //Panel
         JPanel panel = new JPanel();
         frame.getContentPane().add(panel, BorderLayout.NORTH);
 
@@ -60,9 +66,11 @@ public class Window {
         textField.setColumns(40);
         panel.add(textField);
 
+        //Buttons
         JButton btnSelect = new JButton("Select a file");
         JButton btnOpen = new JButton("Open");
 
+        //ActionListener
         btnSelect.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
 
@@ -78,7 +86,6 @@ public class Window {
                     File selectedFile = fileChooser.getSelectedFile();
                     wavefrontFile = selectedFile.getAbsolutePath();
                     textField.setText(wavefrontFile);
-                   // System.out.println("Selected file: " + selectedFile.getAbsolutePath())
                 }
             }
         });
@@ -99,34 +106,45 @@ public class Window {
         panel.add(btnOpen);
     }
 
+    /**
+     * sets the window title
+     * @param title
+     */
     public static void setTitle(String title){
         frame.setTitle(title);
     }
 
-    public static String getTitle(){
-        return frame.getTitle();
-    }
-
-    public static boolean isCloseRequested() {
-        return closeRequested;
-    }
-
+    /**
+     * @return canvas
+     */
     public Canvas getCanvas(){
         return canvas;
     }
 
+    /**
+     * dispose
+     */
     public void dispose(){
         frame.dispose();
     }
 
-    public int getCanvasHeiht(){
+    /**
+     * @return canvas height
+     */
+    public int getCanvasHeight(){
         return canvas.getHeight();
     }
 
+    /**
+     * @return canvas width
+     */
     public int getCanvasWidth(){
         return canvas.getWidth();
     }
 
+    /**
+     * @return wavefront file
+     */
     public static File getWavefrontFile(){
 
         if(wavefrontFile != null && !wavefrontFile.isEmpty()) {
@@ -137,6 +155,5 @@ public class Window {
             return null;
         }
     }
-
 }
 

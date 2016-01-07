@@ -2,9 +2,15 @@ package geometrie;
 
 /**
  * Created by michael on 23.11.2015.
+ *
+ * CoordSystem class - for testing purposes only
  */
 public class CoordSystem {
 
+    /**
+     * returns the vertices
+     * @return
+     */
     public static float[] getVertices() {
 
         float[] vertices = {
@@ -16,7 +22,10 @@ public class CoordSystem {
         return vertices;
     }
 
-
+    /**
+     * returns the indices
+     * @return
+     */
     public static int[] getIndices() {
 
         int[] indices = {
