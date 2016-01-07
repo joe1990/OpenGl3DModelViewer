@@ -37,7 +37,7 @@ public class Window {
     private void initialize() {
 
         frame = new JFrame();
-        frame.setTitle("OpenGl Wavefront Viewer");
+        frame.setTitle("OpenGL Wavefront Viewer");
         frame.setBounds(100, 100, 1200, 800);
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.setResizable(false);
@@ -116,7 +116,7 @@ public class Window {
      * @param title
      */
     public static void setTitle(String title){
-        frame.setTitle("OpenGl Wavefront Viewer - " + title);
+        frame.setTitle("OpenGL Wavefront Viewer - " + title);
     }
 
     /**
