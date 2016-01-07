@@ -37,7 +37,7 @@ public class Renderer {
     public void prepare(){
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-        GL11.glClearColor(0.8f, 0.8f, 0.8f, 1); //Backgroundcolor in RGB
+        GL11.glClearColor(0.7f, 0.8f, 1, 1); //Backgroundcolor in RGB
     }
 
     /**
