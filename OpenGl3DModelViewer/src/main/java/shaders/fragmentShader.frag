@@ -26,8 +26,13 @@ void main()
 
     float specularFactor = dot(reflectedLightDirection, unitVectorToCamera);
     specularFactor = max(specularFactor, 0.0);
-    float dampedFactor = pow(specularFactor, 10); //DampFactor
-    vec3 finalSpecular = dampedFactor * 1 * lightColor; //Reflectivity
+
+    //DampFactor = 10 -> Abweichung des Winkels zwischen toCamera und reflectedLight
+    float dampedFactor = pow(specularFactor, 10);
+
+    //Reflectivity = 1 -> Reflektionsfähigkeit des Materials
+    vec3 finalSpecular = dampedFactor * 1 * lightColor;
+
 
     //without light
     //gl_FragColor = vec4(color, 1.0);

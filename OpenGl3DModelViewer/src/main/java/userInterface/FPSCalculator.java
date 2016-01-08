@@ -4,19 +4,27 @@ import org.lwjgl.Sys;
 
 /**
  * Created by michael on 16.11.2015.
+ *
+ * calculates the current FPS
  */
 
 public class FPSCalculator {
 
-    int fps; //frames per seconds
-    long lastFPS;
+    //frames per seconds
+    private int fps;
+    private long lastFPS;
 
+    /**
+     * calculate FPS
+     */
     public FPSCalculator(){
         lastFPS = getTime(); //set lastFPS to current Time
     }
 
 
-
+    /**
+     * update FPS
+     */
     public void updateFPS() {
         if (getTime() - lastFPS > 1000) {
             Window.setTitle("FPS: " + fps);
@@ -26,7 +34,9 @@ public class FPSCalculator {
         fps++;
     }
 
-
+    /**
+     * @return time in millisec
+     */
     public long getTime() {
         return (Sys.getTime() * 1000) / Sys.getTimerResolution();
     }

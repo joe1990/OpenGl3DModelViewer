@@ -8,7 +8,14 @@ import org.lwjgl.util.vector.Vector3f;
  */
 public class Maths {
 
-    public static Matrix4f createTransformationMatrx(Vector3f translation, Vector3f rotation, float scale){
+    /**
+     * creates a transformation matrix
+     * @param translation
+     * @param rotation
+     * @param scale
+     * @return transformation matrix
+     */
+    public static Matrix4f createTransformationMatrix(Vector3f translation, Vector3f rotation, float scale){
         Matrix4f matrix = new Matrix4f();
         matrix.setIdentity();
         Matrix4f.translate(translation, matrix, matrix);
@@ -19,6 +26,11 @@ public class Maths {
         return matrix;
     }
 
+    /**
+     * creates a view matrix
+     * @param camera
+     * @return view matrix
+     */
     public static Matrix4f createViewMatrix(Camera camera){
         Matrix4f viewMatrix = new Matrix4f();
         viewMatrix.setIdentity();

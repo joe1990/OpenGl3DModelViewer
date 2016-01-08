@@ -11,15 +11,19 @@ import shaders.ShaderCollection;
 
 /**
  * Created by michael on 16.11.2015.
+ *
+ * Renderlogic
  */
 public class Renderer {
 
     private static final float FOV = 70; //Field of View angle
     private static final float NEAR_PLANE = 0.1f;
     private static final float FAR_PLANE = 1000;
-
     private Matrix4f projectionMatrix;
 
+    /**
+     * @param shader
+     */
     public Renderer(ShaderCollection shader){
         createProjectionMatrix();
         shader.start();
@@ -27,42 +31,58 @@ public class Renderer {
         shader.stop();
     }
 
+    /**
+     * Prepare
+     */
     public void prepare(){
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-        GL11.glClearColor(0.8f, 0.8f, 0.8f, 1); //Backgroundcolor in RGB
-}
+        GL11.glClearColor(0.7f, 0.8f, 1, 1); //Backgroundcolor in RGB
+    }
 
-    public void render(Entity entity, ShaderCollection shader){
+    /**
+     * render method for standard models
+     * @param entity
+     * @param shader
+     */
+    public void renderTriangles(Entity entity, ShaderCollection shader){
         GL30.glBindVertexArray(entity.getModel().getVaoId());
         GL20.glEnableVertexAttribArray(0); //activate Vertices
         GL20.glEnableVertexAttribArray(1); //activate Normals
-        Matrix4f transformationMatrix = Maths.createTransformationMatrx(
+        GL20.glEnableVertexAttribArray(2); //activate colors
+        Matrix4f transformationMatrix = Maths.createTransformationMatrix(
                 entity.getTranslation(),
-                new Vector3f(entity.getRotX(),entity.getRotY(),entity.getRotZ()),
+                new Vector3f(entity.getRotX(), entity.getRotY(), entity.getRotZ()),
                 entity.getScale());
         shader.loadTransformationMatrix(transformationMatrix);
         GL11.glDrawElements(GL11.GL_TRIANGLES, entity.getModel().getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
         GL20.glDisableVertexAttribArray(0); //deactivate Vertices
         GL20.glDisableVertexAttribArray(1); //deactivate Normals
+        GL20.glDisableVertexAttribArray(2); //deactivate colors
         GL30.glBindVertexArray(0); //deactivate VAO
     }
 
-    public void renderLine(Entity entity, ShaderCollection shader){
+    /**
+     * render method for line models
+     * @param entity
+     * @param shader
+     */
+    public void renderLines(Entity entity, ShaderCollection shader) {
         GL30.glBindVertexArray(entity.getModel().getVaoId());
         GL20.glEnableVertexAttribArray(0); //activate Vertices
-        //GL20.glEnableVertexAttribArray(1); //activate Normals
-        Matrix4f transformationMatrix = Maths.createTransformationMatrx(
+        Matrix4f transformationMatrix = Maths.createTransformationMatrix(
                 entity.getTranslation(),
-                new Vector3f(entity.getRotX(),entity.getRotY(),entity.getRotZ()),
+                new Vector3f(entity.getRotX(), entity.getRotY(), entity.getRotZ()),
                 entity.getScale());
         shader.loadTransformationMatrix(transformationMatrix);
         GL11.glDrawElements(GL11.GL_LINES, entity.getModel().getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
         GL20.glDisableVertexAttribArray(0); //deactivate Vertices
-        //GL20.glDisableVertexAttribArray(1); //deactivate Normals
         GL30.glBindVertexArray(0); //deactivate VAO
     }
 
+    /**
+     * creates a projection matrix
+     */
     private void createProjectionMatrix() {
         float aspectRatio = (float) Display.getWidth() / (float) Display.getHeight();
         float y_scale = (float) ((1f / Math.tan(Math.toRadians(FOV / 2f))) * aspectRatio);

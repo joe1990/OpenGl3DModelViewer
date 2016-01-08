@@ -13,7 +13,6 @@ public class ShaderCollection extends Shader{
     private static final String VERTEX_FILE = "src/main/java/shaders/vertexShader.vert";
     private static final String FRAGMENT_FILE = "src/main/java/shaders/fragmentShader.frag";
 
-
     private int location_projectionMatrix;
     private int location_viewMatrix;
     private int location_transformationMatrix;
@@ -32,19 +31,35 @@ public class ShaderCollection extends Shader{
 
     }
 
+    /**
+     * load a projection matrix
+     * @param projection
+     */
     public void loadProjectionMatrix(Matrix4f projection){
         super.loadMatrix(location_projectionMatrix, projection);
     }
 
+    /**
+     * loads a view matrix
+     * @param camera
+     */
     public void loadViewMatrix(Camera camera){
         Matrix4f viewMatrix = Maths.createViewMatrix(camera);
         super.loadMatrix(location_viewMatrix, viewMatrix);
     }
 
+    /**
+     * loads a transformation matrix
+     * @param matrix
+     */
     public void loadTransformationMatrix(Matrix4f matrix){
         super.loadMatrix(location_transformationMatrix, matrix);
     }
 
+    /**
+     * loads a light
+     * @param light
+     */
     public void loadLight(Light light){
         super.loadVector(location_lightPosition, light.getPosition());
         super.loadVector(location_lightColor, light.getColour());
