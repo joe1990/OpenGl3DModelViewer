@@ -3,18 +3,18 @@ package renderEngine;
 /**
  * Created by michael on 16.11.2015.
  */
-public class RawModel {
+public class Model {
 
+    private int vertices;
     private int vaoID;
-    private int vertexCount;
 
     /**
      * @param voaId
-     * @param vertexCount
+     * @param vertices
      */
-    public RawModel(int voaId, int vertexCount){
+    public Model(int voaId, int vertices){
         this.vaoID = voaId;
-        this.vertexCount = vertexCount;
+        this.vertices = vertices;
     }
 
     /**
@@ -27,8 +27,8 @@ public class RawModel {
     /**
      * @return vertexCount
      */
-    public int getVertexCount() {
-        return vertexCount;
+    public int getNumberOfvertices() {
+        return vertices;
     }
 
 }

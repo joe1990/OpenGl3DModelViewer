@@ -36,14 +36,14 @@ public class Main {
 
         //init Light
         Light light = new Light(new Vector3f(20,20,0), new Vector3f(1,1,1));
-        RawModel sunModel = OBJReader.loadObjModel(new File("ressources/sphere3.obj"), loader, Color.yellow);
+        Model sunModel = OBJReader.loadObjModel(new File("ressources/sphere3.obj"), loader, Color.yellow);
         Entity sunEntity = new Entity(sunModel, new Vector3f(20,20,0), 0, 0, 0, 1);
 
         //init Camera
         Camera camera = new Camera();
 
         //Grid
-        RawModel lineModel = loader.loadVAO(Line.getVertices(), Line.getIndices());
+        Model lineModel = loader.loadVAO(Line.getVertices(), Line.getIndices());
         ArrayList<Entity> lineGrid = new ArrayList<Entity>();
         for(int i=0; i<21; i++) {
 
@@ -91,7 +91,7 @@ public class Main {
             //Render model
             File wavefrontFile = Window.getWavefrontFile();
             if(wavefrontFile != null){
-                RawModel rawModel = OBJReader.loadObjModel(wavefrontFile, loader, Color.red);
+                Model rawModel = OBJReader.loadObjModel(wavefrontFile, loader, Color.red);
                 entity = new Entity(rawModel, new Vector3f(0,0,0) ,0,0,0,1);
             }
 

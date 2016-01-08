@@ -17,7 +17,7 @@ import java.util.List;
 
 public class OBJReader {
 
-    public static RawModel loadObjModel(File file, GPUInterface loader, Color color) {
+    public static Model loadObjModel(File file, GPUInterface loader, Color color) {
         FileReader fr = null;
         try {
             fr = new FileReader(file);

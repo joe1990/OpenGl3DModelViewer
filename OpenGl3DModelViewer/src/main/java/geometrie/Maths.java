@@ -3,9 +3,6 @@ package geometrie;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 
-/**
- * Created by michael on 16.11.2015.
- */
 public class Maths {
 
     /**

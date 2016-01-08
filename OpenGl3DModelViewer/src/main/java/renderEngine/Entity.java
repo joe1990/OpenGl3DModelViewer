@@ -9,12 +9,11 @@ import org.lwjgl.util.vector.Vector3f;
  */
 public class Entity {
 
-    private RawModel model;
-    private Vector3f translation;
-    private float rotX;
-    private float rotY;
-    private float rotZ;
-    private float scale;
+    Vector3f rotation;
+    Vector3f translation;
+    float scale;
+
+    Model model;
 
     /**
      * @param model
@@ -24,19 +23,17 @@ public class Entity {
      * @param rotZ
      * @param scale
      */
-    public Entity(RawModel model, Vector3f translation, float rotX, float rotY, float rotZ, float scale) {
+    public Entity(Model model, Vector3f translation, float rotX, float rotY, float rotZ, float scale) {
         this.model = model;
         this.translation = translation;
-        this.rotX = rotX;
-        this.rotY = rotY;
-        this.rotZ = rotZ;
+        this.rotation = new Vector3f(rotX, rotY, rotZ);
         this.scale = scale;
     }
 
     /**
      * @return model
      */
-    public RawModel getModel() {
+    public Model getModel() {
         return model;
     }
 
@@ -51,21 +48,21 @@ public class Entity {
      * @return x rotation
      */
     public float getRotX() {
-        return rotX;
+        return rotation.x;
     }
 
     /**
      * @return y rotation
      */
     public float getRotY() {
-        return rotY;
+        return rotation.y;
     }
 
     /**
      * @return z rotation
      */
     public float getRotZ() {
-        return rotZ;
+        return rotation.z;
     }
 
     /**

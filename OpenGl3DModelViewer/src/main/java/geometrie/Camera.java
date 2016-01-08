@@ -10,7 +10,7 @@ import org.lwjgl.util.vector.Vector3f;
  */
 public class Camera {
 
-    private float distanceToModel = 30;
+    private float dist_Model = 30;
     private float angleAroundModel = 180;
     private Vector3f position = new Vector3f(0,0,0); //Kamera Position
     private float yaw; //rotation um die Y-Achse der Kamera
@@ -20,71 +20,36 @@ public class Camera {
      * moves the camera according the user input
      */
     public void move(){
-        calculateZoom();
-        calculatePitch();
-        calculateAngleAroundModel();
-        float horizontalDistance = calculateHorizontalDistance();
-        float verticalDistance = calculateVerticalDistance();
 
-        calculateCameraPosition(horizontalDistance, verticalDistance);
-        this.yaw = 180 - angleAroundModel;
-    }
-
-    /**
-     * calculates the camera position
-     * @param horizontalDistance
-     * @param verticalDistance
-     */
-    private void calculateCameraPosition(float horizontalDistance, float verticalDistance ){
-        float offsetX = horizontalDistance * (float)Math.sin(Math.toRadians(angleAroundModel));
-        float offsetZ = horizontalDistance * (float)Math.cos(Math.toRadians(angleAroundModel));
-        position.x = - offsetX;
-        position.z = - offsetZ;
-        position.y = verticalDistance;
-    }
-
-    /**
-     * calculates the horizontal distance
-     * @return
-     */
-    private float calculateHorizontalDistance(){
-        return distanceToModel * (float)Math.cos(Math.toRadians(pitch));
-    }
-
-    /**
-     * calculates the vertical distance
-     * @return
-     */
-    private float calculateVerticalDistance() {
-        return distanceToModel * (float)Math.sin(Math.toRadians(pitch));
-    }
-
-    /**
-     * calculate the zoom factor
-     */
-    private void calculateZoom(){
+        //Zoom
         float zoomLevel = Mouse.getDWheel() * 0.05f;
-        distanceToModel -= zoomLevel;
-    }
+        dist_Model -= zoomLevel;
 
-    /**
-     * calculates the pitch (x-axis)
-     */
-    private void calculatePitch(){
+        //pitch
         if(Mouse.isButtonDown(0)){
             float pitchChange = Mouse.getDY() * 0.2f;
             pitch -= pitchChange;
         }
-    }
 
-    /**
-     * calculates the angle around the model
-     */
-    private void calculateAngleAroundModel(){
+        //angle around Model
         if(Mouse.isButtonDown(0)){
             float angleChange = Mouse.getDX() * 0.2f;
             angleAroundModel -= angleChange;
         }
+
+        //distance
+        float dist_horizontal =  dist_Model * (float)Math.cos(Math.toRadians(pitch));
+        float dist_vertical = dist_Model * (float)Math.sin(Math.toRadians(pitch));
+
+        //position
+        float xPos = dist_horizontal * (float)Math.sin(Math.toRadians(angleAroundModel));
+        float zPos = dist_horizontal * (float)Math.cos(Math.toRadians(angleAroundModel));
+
+        position.x = - xPos;
+        position.z = - zPos;
+        position.y = dist_vertical;
+
+        this.yaw = 180 - angleAroundModel;
     }
 
     /**

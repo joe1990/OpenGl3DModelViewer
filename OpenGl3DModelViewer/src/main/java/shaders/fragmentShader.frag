@@ -1,9 +1,9 @@
 #version 400 core
 
-in vec3 color;
-in vec3 surfaceNormal;
-in vec3 toLightVector;
-in vec3 toCameraVector;
+in vec3 v_toLight;
+in vec3 v_toCamera;
+in vec3 v_normal;
+in vec3 v_color;
 
 uniform vec3 lightColor;
 
@@ -11,36 +11,34 @@ void main()
 {
 
     //Normalize Vectors
-    vec3 unitNormal = normalize(surfaceNormal); //normalize: vec länge auf 1 setzen
-    vec3 unitToLightVector = normalize(toLightVector);
+    vec3 normNormal = normalize(v_normal); //normalize: vec länge auf 1 setzen
+    vec3 normToLight = normalize(v_toLight);
+    vec3 normToCamera = normalize(v_toCamera);
 
     //diffuse
-    float nDot = dot(unitNormal, unitToLightVector);
-    float brightness = max(nDot, 0.4); //Ambient
+    float diffFactor = dot(normNormal, normToLight);
+    float brightness = max(diffFactor, 0.4); //Ambient
     vec3 diffuse = brightness * lightColor;
 
     //specular
-    vec3 unitVectorToCamera = normalize(toCameraVector);
-    vec3 lightDirection = -unitToLightVector;
-    vec3 reflectedLightDirection = reflect(lightDirection, unitNormal);
+    vec3 lightDirection = -normToLight;
+    vec3 reflectedLight = reflect(lightDirection, normNormal);
+    float specFactor = dot(reflectedLight, normToCamera);
+    specFactor = max(specFactor, 0.0);
 
-    float specularFactor = dot(reflectedLightDirection, unitVectorToCamera);
-    specularFactor = max(specularFactor, 0.0);
+    //Abweichung des Winkels zwischen toCamera und reflectedLight = 10
+    float aberrationFactor = pow(specFactor, 10);
 
-    //DampFactor = 10 -> Abweichung des Winkels zwischen toCamera und reflectedLight
-    float dampedFactor = pow(specularFactor, 10);
-
-    //Reflectivity = 1 -> Reflektionsfähigkeit des Materials
-    vec3 finalSpecular = dampedFactor * 1 * lightColor;
-
+    //Reflektionsfähigkeit des Materials = 1
+    vec3 specular = aberrationFactor * 1 * lightColor;
 
     //without light
-    //gl_FragColor = vec4(color, 1.0);
+    //gl_FragColor = vec4(v_color, 1.0);
 
     //ambient and diffuse
-    //gl_FragColor = (vec4(diffuse, 1.0) * vec4(color, 1.0)) ;
+    //gl_FragColor = (vec4(diffuse, 1.0) * vec4(v_color, 1.0)) ;
 
     //Aambient, diffuse und specular
-    gl_FragColor = (vec4(diffuse, 1.0) * vec4(color, 1.0)) + vec4(finalSpecular, 1.0);
+    gl_FragColor = (vec4(diffuse, 1.0) * vec4(v_color, 1.0)) + vec4(specular, 1.0);
 
 }

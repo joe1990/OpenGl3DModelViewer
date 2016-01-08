@@ -18,8 +18,8 @@ import java.util.ArrayList;
  */
 public class GPUInterface {
 
-    private ArrayList<Integer> vaos = new ArrayList<Integer>();
-    private ArrayList<Integer> vbos = new ArrayList<Integer>();
+    private ArrayList<Integer> vbo_list = new ArrayList<Integer>();
+    private ArrayList<Integer> vao_list = new ArrayList<Integer>();
 
     /**
      * loads data into a VAO
@@ -29,8 +29,12 @@ public class GPUInterface {
      * @param colour
      * @return
      */
-    public RawModel loadVAO(float[] positions, int[] indices, float normals[], Color colour){
-        int vaoID = createVAO();
+    public Model loadVAO(float[] positions, int[] indices, float normals[], Color colour){
+
+        int vaoID = GL30.glGenVertexArrays();
+        vao_list.add(vaoID);
+        GL30.glBindVertexArray(vaoID);
+
         bindIndicesBuffer(indices);
         storeDataInAttributList(0, 3, positions);
         storeDataInAttributList(1, 3, normals);
@@ -45,7 +49,7 @@ public class GPUInterface {
 
         storeDataInAttributList(2, 3, colours);
         GL30.glBindVertexArray(0);
-        return new RawModel(vaoID, indices.length);
+        return new Model(vaoID, indices.length);
     }
 
     /**
@@ -54,49 +58,44 @@ public class GPUInterface {
      * @param indices
      * @return
      */
-    public RawModel loadVAO(float[] positions, int[] indices){
-        int vaoID = createVAO();
+    public Model loadVAO(float[] positions, int[] indices){
+
+        int vaoID = GL30.glGenVertexArrays();
+        vao_list.add(vaoID);
+        GL30.glBindVertexArray(vaoID);
+
         bindIndicesBuffer(indices);
         storeDataInAttributList(0, 3, positions);
         GL30.glBindVertexArray(0);
-        return new RawModel(vaoID, indices.length);
+        return new Model(vaoID, indices.length);
     }
 
     /**
      * clean up
      */
     public void cleanUp(){
-        for(int vao:vaos){
+        for(int vao:vao_list){
             GL30.glDeleteVertexArrays(vao);
         }
-        for(int vbo:vbos){
+        for(int vbo:vbo_list){
             GL30.glDeleteFramebuffers(vbo);
         }
     }
 
-    /**
-     * @return vao id
-     */
-    private int createVAO(){
-        int voaID = GL30.glGenVertexArrays();
-        vaos.add(voaID);
-        GL30.glBindVertexArray(voaID);
-        return voaID;
-    }
 
     /**
      * stores data in attribut list
-     * @param attributNumber
-     * @param coordSize
+     * @param attribut
+     * @param coords
      * @param data
      */
-    private void storeDataInAttributList(int attributNumber, int coordSize, float[] data){
+    private void storeDataInAttributList(int attribut, int coords, float[] data){
         int vboID = GL15.glGenBuffers();
-        vbos.add(vboID);
+        vbo_list.add(vboID);
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vboID);
         FloatBuffer buffer = this.storeDataInFloatBuffer(data);
         GL15.glBufferData(GL15.GL_ARRAY_BUFFER, buffer, GL15.GL_STATIC_DRAW);
-        GL20.glVertexAttribPointer(attributNumber, coordSize, GL11.GL_FLOAT, false, 0, 0);
+        GL20.glVertexAttribPointer(attribut, coords, GL11.GL_FLOAT, false, 0, 0);
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
     }
 
@@ -106,7 +105,7 @@ public class GPUInterface {
      */
     private void  bindIndicesBuffer(int[] indices){
         int vboID = GL15.glGenBuffers();
-        vbos.add(vboID);
+        vbo_list.add(vboID);
         GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, vboID);
         IntBuffer buffer = this.storeDataInIntBuffer(indices);
         GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, buffer, GL15.GL_STATIC_DRAW);
