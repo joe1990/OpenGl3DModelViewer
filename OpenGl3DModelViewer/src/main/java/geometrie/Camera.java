@@ -10,11 +10,11 @@ import org.lwjgl.util.vector.Vector3f;
  */
 public class Camera {
 
-    private float dist_Model = 30;
+    private float dist_Model = 60;
     private float angleAroundModel = 180;
     private Vector3f position = new Vector3f(0,0,0); //Kamera Position
     private float yaw; //rotation um die Y-Achse der Kamera
-    private float pitch = 20; //rotation um die X-Achse der Kamera
+    private float pitch = 30; //rotation um die X-Achse der Kamera
 
     /**
      * moves the camera according the user input
