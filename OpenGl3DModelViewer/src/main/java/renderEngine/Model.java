@@ -1,34 +1,38 @@
 package renderEngine;
 
 /**
- * Created by michael on 16.11.2015.
+ * Klasse für ein Model, bestehend aus dem Vertex Array Object (VAO) und der Anzahl Knoten des Models.
  */
 public class Model {
 
-    private int vertices;
+    private int numberOfVertices;
     private int vaoID;
 
     /**
-     * @param voaId
-     * @param vertices
+     * Konstruktor. Erzeugt eine neues Model für das übergebenen VAO und die Anzahl Knoten.
+     *
+     * @param voaId ID des VAO.
+     * @param numberOfVertices Anzahl Knoten
      */
-    public Model(int voaId, int vertices){
+    public Model(int voaId, int numberOfVertices){
         this.vaoID = voaId;
-        this.vertices = vertices;
+        this.numberOfVertices = numberOfVertices;
     }
 
     /**
-     * @return vaoID
+     * Gibt die ID des Vertex Array Objects (VAO) zurück.
+     * @return vaoID ID des VAO.
      */
     public int getVaoId() {
         return vaoID;
     }
 
     /**
-     * @return vertexCount
+     * Gibt die Anzahl Knoten zurück.
+     * @return vertexCount Anzahl Knoten
      */
     public int getNumberOfvertices() {
-        return vertices;
+        return numberOfVertices;
     }
 
 }

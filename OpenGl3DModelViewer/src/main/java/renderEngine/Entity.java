@@ -3,25 +3,19 @@ package renderEngine;
 import org.lwjgl.util.vector.Vector3f;
 
 /**
- * Created by michael on 14.12.2015.
- *
- * Entity class
+ * Klasse, welche eine Entität (Einheit) in unserer Applikation darstellt.
+ * Eine Entität ist beispielsweise die Sonne, oder eine Linie des Gitternetzes.
  */
 public class Entity {
 
-    Vector3f rotation;
-    Vector3f translation;
-    float scale;
+    private Vector3f rotation;
+    private Vector3f translation;
+    private float scale;
 
-    Model model;
+    private Model model;
 
     /**
-     * @param model
-     * @param translation
-     * @param rotX
-     * @param rotY
-     * @param rotZ
-     * @param scale
+     * Konstruktor. Erzeugt eine neue Entität für die übergebenen Parameter.
      */
     public Entity(Model model, Vector3f translation, float rotX, float rotY, float rotZ, float scale) {
         this.model = model;
@@ -31,42 +25,48 @@ public class Entity {
     }
 
     /**
-     * @return model
+     * Gibt das Model der Entität zurück.
+     * @return model Model der Entität.
      */
     public Model getModel() {
         return model;
     }
 
     /**
-     * @return translation
+     * Gibt die Translation der Entität zurück.
+     * @return translation Translation der Entität.
      */
     public Vector3f getTranslation() {
         return translation;
     }
 
     /**
-     * @return x rotation
+     * Gibt die Rotation der Entität um die X-Achse zurück.
+     * @return Rotation der Entität um die X-Achse.
      */
     public float getRotX() {
         return rotation.x;
     }
 
     /**
-     * @return y rotation
+     * Gibt die Rotation der Entität um die Y-Achse zurück.
+     * @return Rotation der Entität um die Y-Achse.
      */
     public float getRotY() {
         return rotation.y;
     }
 
     /**
-     * @return z rotation
+     * Gibt die Rotation der Entität um die Z-Achse zurück.
+     * @return Rotation der Entität um die Z-Achse.
      */
     public float getRotZ() {
         return rotation.z;
     }
 
     /**
-     * @return scale factor
+     * Gibt den Skalierungsfaktor der Entität zurück.
+     * @return Skalierungsfaktor der Entität.
      */
     public float getScale() {
         return scale;

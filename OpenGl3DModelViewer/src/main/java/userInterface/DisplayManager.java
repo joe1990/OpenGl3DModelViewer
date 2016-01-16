@@ -7,20 +7,22 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.PixelFormat;
 
 /**
- * Created by michael on 16.11.2015.
+ * Diese Klasse wird benötigt, um die OpenGL-Modelle, welche im Main-Loop erstellt wurden, in dem Fenster der
+ * Java-Applikation anzuzeigen.
  */
 public class DisplayManager {
 
     private static final int fps = 120;
-    public static Window window;
-    public static FPSCalculator fpsCalc;
+    private static Window window;
+    private static FPSCalculator fpsCalc;
 
     /**
-     * create display
+     * Erstellt die Darstellung.
      */
     public static void create(){
 
-        ContextAttribs attribs = new ContextAttribs(4, 1); //Use OpenGL Version 4.1
+        //OpenGL Version 4.1 verwenden. Diese wird von den Grafikkarten beider Entwickler (Studenten) unterstützt.
+        ContextAttribs attribs = new ContextAttribs(4, 1);
         attribs.withForwardCompatible(true);
         attribs.withProfileCore(true);
 
@@ -38,15 +40,16 @@ public class DisplayManager {
     }
 
     /**
-     * checks if the user close the window
-     * @return
+     * Prüft ob der User das Fenster geschlossen hat.
+     *
+     * @return True = User hat Fenster geschlosse, False = User hat Fenster nicht geschlossen.
      */
     public static boolean isNotCloseRequested(){
         return !Display.isCloseRequested() && !Window.closeRequested;
     }
 
     /**
-     * updates the display
+     * Aktualisiert die Anzeige.
      */
     public static void update(){
         Display.sync(fps);
@@ -55,7 +58,7 @@ public class DisplayManager {
     }
 
     /**
-     * close the display
+     * Schliesst das Fenster.
      */
     public static void close(){
         Display.destroy();

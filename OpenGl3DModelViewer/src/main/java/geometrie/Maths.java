@@ -3,14 +3,18 @@ package geometrie;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 
+/**
+ * Beinhaltet Mathematische-Funktionen zur Erstellung von Transformation- und View-Matrix.
+ */
 public class Maths {
 
     /**
-     * creates a transformation matrix
-     * @param translation
-     * @param rotation
-     * @param scale
-     * @return transformation matrix
+     * Erstellt aus der übergebenen Translation, Rotation uns Skalierung eine Transformations-Matrix.
+     *
+     * @param translation Translation
+     * @param rotation Rotation
+     * @param scale Skalierung
+     * @return Erstellte Transformations-Matrix.
      */
     public static Matrix4f createTransformationMatrix(Vector3f translation, Vector3f rotation, float scale){
         Matrix4f matrix = new Matrix4f();
@@ -24,9 +28,10 @@ public class Maths {
     }
 
     /**
-     * creates a view matrix
-     * @param camera
-     * @return view matrix
+     * Erstellt eine View-Matrix abhängig von den Werten der übergebenen Kamera (Position, Pitch und Yaw).
+     *
+     * @param camera Kamera, abhängig von welcher eine View-Matrix erstellt werden soll.
+     * @return Erstellte View-Matrix.
      */
     public static Matrix4f createViewMatrix(Camera camera){
         Matrix4f viewMatrix = new Matrix4f();

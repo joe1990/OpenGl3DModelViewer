@@ -9,18 +9,17 @@ uniform vec3 lightColor;
 
 void main()
 {
-
-    //Normalize Vectors
+    //Vektoren normalisieren
     vec3 normNormal = normalize(v_normal); //normalize: vec länge auf 1 setzen
     vec3 normToLight = normalize(v_toLight);
     vec3 normToCamera = normalize(v_toCamera);
 
-    //diffuse
+    //Diffuses-Licht
     float diffFactor = dot(normNormal, normToLight);
     float brightness = max(diffFactor, 0.4); //Ambient
     vec3 diffuse = brightness * lightColor;
 
-    //specular
+    //Spekular-Licht
     vec3 lightDirection = -normToLight;
     vec3 reflectedLight = reflect(lightDirection, normNormal);
     float specFactor = dot(reflectedLight, normToCamera);
@@ -32,13 +31,12 @@ void main()
     //Reflektionsfähigkeit des Materials = 1
     vec3 specular = aberrationFactor * 1 * lightColor;
 
-    //without light
+    //Ohne Licht
     //gl_FragColor = vec4(v_color, 1.0);
 
-    //ambient and diffuse
+    //Ambient- und Diffuses-Licht
     //gl_FragColor = (vec4(diffuse, 1.0) * vec4(v_color, 1.0)) ;
 
-    //Aambient, diffuse und specular
+    //Ambient-, Diffuses- und Spekular-Licht
     gl_FragColor = (vec4(diffuse, 1.0) * vec4(v_color, 1.0)) + vec4(specular, 1.0);
-
 }

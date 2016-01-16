@@ -11,11 +11,8 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 
 /**
- * Created by michael on 16.11.2015.
- *
- * Window class - creates the user interface
+ * Klasse erstellt das Fenster des User-Interfaces.
  */
-
 public class Window {
 
     private static JFrame frame;
@@ -25,14 +22,16 @@ public class Window {
 
     public static boolean closeRequested = false;
 
-
+    /**
+     * Konstruktor. Initialisiert das Fenster und blendet das initialisierte Fenster ein.
+     */
     public Window() {
         initialize();
         frame.setVisible(true);
     }
 
     /**
-     * init
+     * Initialisiert das Fenster
      */
     private void initialize() {
 
@@ -42,7 +41,7 @@ public class Window {
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.setResizable(false);
 
-        //frame icon
+        //Fenster-Icon
         ImageIcon img = new ImageIcon("ressources\\logo.png");
         frame.setIconImage(img.getImage());
 
@@ -61,21 +60,22 @@ public class Window {
         JPanel panel = new JPanel();
         frame.getContentPane().add(panel, BorderLayout.NORTH);
 
-        //Textfield
+        //Textfeld zur Angabe des Filepfads des Wavefront OBJ-File
         textField = new JTextField();
         textField.setColumns(69);
         Font font = new Font("Arial", Font.BOLD, 16);
         textField.setFont(font);
         panel.add(textField);
 
-        //Buttons
+        //Buttons zur Auswahl des Wavefront OBJ-Files
         JButton btnSelect = new JButton("Select a file");
         JButton btnOpen = new JButton("Open");
 
         btnSelect.setPreferredSize(new Dimension(100,22));
         btnOpen.setPreferredSize(new Dimension(100,22));
 
-        //ActionListener
+        //ActionListener für den "Select a File"-Button-Klick -> FileOpenDialog einblenden, welche die Auswahl eines Wavefront OBJ-Files
+        //ermöglicht.
         btnSelect.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
 
@@ -95,6 +95,7 @@ public class Window {
             }
         });
 
+        //ActionListener für den "Open"-Button-Klick. Öffnet das im Eingabefeld angegebene Wavefront OBJ-File.
         btnOpen.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
 
@@ -112,14 +113,15 @@ public class Window {
     }
 
     /**
-     * sets the window title
-     * @param title
+     * Setzt den Titel des Fensters. Dem Titel des Fenster wird der übergebene Titel angehängt.
+     * @param title Titel, welcher zum statischen Titel "OpenGL Wavefront Viewer - " angehängt werden soll.
      */
     public static void setTitle(String title){
         frame.setTitle("OpenGL Wavefront Viewer - " + title);
     }
 
     /**
+     * Gibt das Canvas des Fenster zurück.
      * @return canvas
      */
     public Canvas getCanvas(){
@@ -134,21 +136,26 @@ public class Window {
     }
 
     /**
-     * @return canvas height
+     * Gibt die Höhe des Canvas zurück.
+     *
+     * @return canvas Höhe
      */
     public int getCanvasHeight(){
         return canvas.getHeight();
     }
 
     /**
-     * @return canvas width
+     * Gibt die Breite des Canvas zurück.
+     *
+     * @return canvas Breite.
      */
     public int getCanvasWidth(){
         return canvas.getWidth();
     }
 
     /**
-     * @return wavefront file
+     * Gibt das geöffnete Wavefront OBJ-File zurück.
+     * @return Geöffnetes wavefront file
      */
     public static File getWavefrontFile(){
 

@@ -9,22 +9,22 @@ import java.io.FileReader;
 import java.nio.FloatBuffer;
 
 /**
- * Created by michael on 16.11.2015
- *
- * Shader class
+ * Klasse um Fragment und Vertex-Shader aus den Shader-Files (.frag und .vert-Endung) zu Laden und diese zu
+ * verarbeiten/anzuwenden.
  */
 public class Shader {
 
-    public int progNr;
-    public static FloatBuffer floatBuffer = BufferUtils.createFloatBuffer(16); //4x4
+    private int progNr;
+    protected FloatBuffer floatBuffer = BufferUtils.createFloatBuffer(16); //4x4
 
     private int vertexShaderNr;
     private int fragmentShaderNr;
 
     /**
+     * Erstellt einen neuen Shader für den übergebenen Fragment- und Vertex-Shader.
      *
-     * @param vertexPath
-     * @param fragmentPath
+     * @param vertexPath Pfad zum Vertex-Shader.
+     * @param fragmentPath Pfad zum Fragment-Shader.
      */
     public Shader(String vertexPath, String fragmentPath){
         progNr = GL20.glCreateProgram();
@@ -44,21 +44,29 @@ public class Shader {
     }
 
     /**
-     * starts the shader
+     * Gibt die ProgNr. zurück.
+     * @return ProgNr.
+     */
+    public int getProgNr() {
+        return this.progNr;
+    }
+
+    /**
+     * Startet den Shader.
      */
     public void start(){
         GL20.glUseProgram(progNr);
     }
 
     /**
-     * stops the shader
+     * Stoppt den Shader.
      */
     public void stop(){
         GL20.glUseProgram(0);
     }
 
     /**
-     * clean up
+     * clean up den Shader.
      */
     public void cleanUp(){
         stop();
@@ -70,12 +78,14 @@ public class Shader {
     }
 
     /**
-     * compile and load the shader
-     * @param file
-     * @param type
-     * @return shader id
+     * Kompiliert und Lädt den Shader aus dem übergebenen Shader-File.
+     * Gibt Fehlermeldungen auf der Konsole aus wenn das übergebene File nicht richtig gelesen werden konnte.
+     *
+     * @param file Shader-File (.frag- oder .vert-Endung)
+     * @param type Typ des Shaders. GL20.GL_FRAGMENT_SHADER für Fragment-Shader, GL20.GL_VERTEX_SHADER für Vertex-Shader.
+     * @return ID des erstellten Shaders.
      */
-    public static int loadShader(String file, int type){
+    private int loadShader(String file, int type){
         StringBuilder shaderSource = new StringBuilder();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -89,6 +99,7 @@ public class Shader {
             System.err.println("Could not read file! - "+file);
             e.printStackTrace();
         }
+
         int shaderID = GL20.glCreateShader(type);
         GL20.glShaderSource(shaderID, shaderSource);
         GL20.glCompileShader(shaderID);

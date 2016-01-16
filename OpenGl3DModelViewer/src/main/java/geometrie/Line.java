@@ -1,17 +1,15 @@
 package geometrie;
 
 /**
- * Created by michael on 23.11.2015.
- *
- * Simple lines
+ * Klasse welche eine einfache Linie darstellt.
  */
 public class Line {
 
     /**
-     * @return vertices
+     * gibt die Knoten der Linie in einem Array zurück.
+     * @return Knoten der Linie.
      */
     public static float[] getVertices() {
-
         float[] vertices = {
                 0, 0, 0,
                 1, 0, 0,
@@ -20,11 +18,10 @@ public class Line {
     }
 
     /**
-     * returns the lines indices
-     * @return indices
+     * Gibt die Indizies der Linie (0 und 1) als Knoten zurück
+     * @return Indizies der Linie (0 und 1)
      */
     public static int[] getIndices() {
-
         int[] indices = {
                 0, 1
         };

@@ -10,9 +10,7 @@ import org.lwjgl.util.vector.Vector3f;
 import shaders.ShaderCollection;
 
 /**
- * Created by michael on 16.11.2015.
- *
- * Renderlogic
+ * Die Klasse beinhaltet die Render-Logik.
  */
 public class Renderer {
 
@@ -22,7 +20,8 @@ public class Renderer {
     private Matrix4f projectionMatrix;
 
     /**
-     * @param shader
+     * Konstruktor. Erstellt für den übergebenen Shader einen neuen Renderer.
+     * @param shader Shader.
      */
     public Renderer(ShaderCollection shader){
         createProjectionMatrix();
@@ -32,56 +31,56 @@ public class Renderer {
     }
 
     /**
-     * Prepare
+     * Vorbereitung des Renderers.
      */
     public void prepare(){
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_COLOR_BUFFER_BIT);
-        GL11.glClearColor(0.7f, 0.8f, 1, 1); //Backgroundcolor in RGB
+        GL11.glClearColor(0.7f, 0.8f, 1, 1); //Hintergrundfarbe in RGB
     }
 
     /**
-     * render method for standard models
+     * Render-Methode für Standard-Modelle.
      * @param entity
      * @param shader
      */
     public void renderTriangles(Entity entity, ShaderCollection shader){
         GL30.glBindVertexArray(entity.getModel().getVaoId());
-        GL20.glEnableVertexAttribArray(0); //activate Vertices
-        GL20.glEnableVertexAttribArray(1); //activate Normals
-        GL20.glEnableVertexAttribArray(2); //activate colors
+        GL20.glEnableVertexAttribArray(0); //Vertices aktivieren
+        GL20.glEnableVertexAttribArray(1); //Normalenvektoren aktivieren
+        GL20.glEnableVertexAttribArray(2); //Farben aktivieren
         Matrix4f transformationMatrix = Maths.createTransformationMatrix(
                 entity.getTranslation(),
                 new Vector3f(entity.getRotX(), entity.getRotY(), entity.getRotZ()),
                 entity.getScale());
         shader.loadTransformationMatrix(transformationMatrix);
         GL11.glDrawElements(GL11.GL_TRIANGLES, entity.getModel().getNumberOfvertices(), GL11.GL_UNSIGNED_INT, 0);
-        GL20.glDisableVertexAttribArray(0); //deactivate Vertices
-        GL20.glDisableVertexAttribArray(1); //deactivate Normals
-        GL20.glDisableVertexAttribArray(2); //deactivate colors
-        GL30.glBindVertexArray(0); //deactivate VAO
+        GL20.glDisableVertexAttribArray(0); //Vertices deaktivieren
+        GL20.glDisableVertexAttribArray(1); //Normalenvektoren deaktivieren
+        GL20.glDisableVertexAttribArray(2); //Farben deaktivieren
+        GL30.glBindVertexArray(0); //Vertex Array Objects (VAO) deaktivieren
     }
 
     /**
-     * render method for line models
+     * Render-Methode für Linien-Modelle (z.B. beim Gitternetz)
      * @param entity
      * @param shader
      */
     public void renderLines(Entity entity, ShaderCollection shader) {
         GL30.glBindVertexArray(entity.getModel().getVaoId());
-        GL20.glEnableVertexAttribArray(0); //activate Vertices
+        GL20.glEnableVertexAttribArray(0); //Vertices aktivieren
         Matrix4f transformationMatrix = Maths.createTransformationMatrix(
                 entity.getTranslation(),
                 new Vector3f(entity.getRotX(), entity.getRotY(), entity.getRotZ()),
                 entity.getScale());
         shader.loadTransformationMatrix(transformationMatrix);
         GL11.glDrawElements(GL11.GL_LINES, entity.getModel().getNumberOfvertices(), GL11.GL_UNSIGNED_INT, 0);
-        GL20.glDisableVertexAttribArray(0); //deactivate Vertices
-        GL30.glBindVertexArray(0); //deactivate VAO
+        GL20.glDisableVertexAttribArray(0); //Vertices deaktivieren
+        GL30.glBindVertexArray(0); //Vertex Array Objects (VAO) deaktivieren
     }
 
     /**
-     * creates a projection matrix
+     * Erstellt eine Projektions-Matrix.
      */
     private void createProjectionMatrix() {
         float aspectRatio = (float) Display.getWidth() / (float) Display.getHeight();

@@ -12,9 +12,8 @@ import java.nio.IntBuffer;
 import java.util.ArrayList;
 
 /**
- * Created by michael on 16.11.2015.
- *
- * GPUInterface class - load data into the graphics card
+ * Lädt Daten in die Grafikkarte (GPU-Schnittstelle).
+ * Klasse für das Vertex Array Object (VAO) und Vertex Buffer Object (VBO).
  */
 public class GPUInterface {
 
@@ -22,7 +21,8 @@ public class GPUInterface {
     private ArrayList<Integer> vao_list = new ArrayList<Integer>();
 
     /**
-     * loads data into a VAO
+     * Lädt Daten ins Vertex Array Object (VAO).
+     *
      * @param positions
      * @param indices
      * @param normals
@@ -53,7 +53,8 @@ public class GPUInterface {
     }
 
     /**
-     * loads data into a VAO
+     * Lädt Daten ins Vertex Array Object (VAO).
+     *
      * @param positions
      * @param indices
      * @return
@@ -71,7 +72,7 @@ public class GPUInterface {
     }
 
     /**
-     * clean up
+     * Löscht die Daten aus dem Vertex Array Object (VAO) und aus dem Vertex Buffer Object (VBO).
      */
     public void cleanUp(){
         for(int vao:vao_list){
@@ -84,7 +85,7 @@ public class GPUInterface {
 
 
     /**
-     * stores data in attribut list
+     * Speichert Daten in einer Attribut-Liste.
      * @param attribut
      * @param coords
      * @param data
@@ -100,7 +101,7 @@ public class GPUInterface {
     }
 
     /**
-     * binds indices buffer
+     * Bindet Index-Buffers
      * @param indices
      */
     private void  bindIndicesBuffer(int[] indices){
@@ -112,7 +113,7 @@ public class GPUInterface {
     }
 
     /**
-     * store data in Int buffer
+     * Speichert Daten in einem Int-Buffer
      * @param data
      * @return
      */
@@ -124,7 +125,7 @@ public class GPUInterface {
     }
 
     /**
-     * store data in Float buffer
+     * Speichert Daten in einem Float-Buffer.
      * @param data
      * @return
      */

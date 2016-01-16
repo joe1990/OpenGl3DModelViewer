@@ -3,39 +3,38 @@ package userInterface;
 import org.lwjgl.Sys;
 
 /**
- * Created by michael on 16.11.2015.
- *
- * calculates the current FPS
+ * Berechnet die aktuelle Frames per Seconds (FPS).
+ * FPS konnte gesteigert werden wegen der Anwendung von VAO und VBO.
  */
-
 public class FPSCalculator {
 
-    //frames per seconds
+    //Frames per Seconds
     private int fps;
     private long lastFPS;
 
     /**
-     * calculate FPS
+     * Berechnet FPS.
      */
     public FPSCalculator(){
-        lastFPS = getTime(); //set lastFPS to current Time
+        lastFPS = getTime(); //lastFPS auf die aktuelle Zeit setzen.
     }
 
 
     /**
-     * update FPS
+     * Aktualisiert FBS
      */
     public void updateFPS() {
         if (getTime() - lastFPS > 1000) {
             Window.setTitle("FPS: " + fps);
-            fps = 0; //reset the FPS counter
-            lastFPS += 1000; //add one second
+            fps = 0; //FPS resetten
+            lastFPS += 1000; //eine Sekunde dazufügen
         }
         fps++;
     }
 
     /**
-     * @return time in millisec
+     * Gibt die Zeit in Milisekunden zurück.
+     * @return Zeit in Milisekunden
      */
     public long getTime() {
         return (Sys.getTime() * 1000) / Sys.getTimerResolution();
