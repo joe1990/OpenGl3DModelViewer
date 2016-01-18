@@ -46,7 +46,7 @@ public class Camera {
 
         //Position
         float xPos = distanceHorizontal * (float)Math.sin(Math.toRadians(angleAroundModel));
-        float zPos = distanceVertical * (float)Math.cos(Math.toRadians(angleAroundModel));
+        float zPos = distanceHorizontal * (float)Math.cos(Math.toRadians(angleAroundModel));
 
         position.x = - xPos;
         position.z = - zPos;
